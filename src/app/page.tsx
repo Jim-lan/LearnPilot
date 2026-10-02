@@ -1,0 +1,5 @@
+import Link from "next/link";
+
+export default function Home() {
+  return <div className="page"><p className="eyebrow">Grade 9 learning companion</p><h1>Make the next step feel possible.</h1><p className="lead">LearnPilot connects a small piece of schoolwork to a useful explanation, practice, and specific encouragement. This first build uses synthetic content and keeps personal data on this computer.</p><div className="actions"><Link className="button" href="/setup">Start with setup</Link><Link className="text-link" href="/today">See today’s plan →</Link></div><div className="card-grid"><article className="card"><span className="card-number">01</span><h2>Understand</h2><p>See what an answer shows and where the evidence is still uncertain.</p></article><article className="card"><span className="card-number">02</span><h2>Practice</h2><p>Try one focused activity with honest, helpful feedback.</p></article><article className="card"><span className="card-number">03</span><h2>Return</h2><p>Check again later without treating time alone as lost understanding.</p></article></div></div>;
+}

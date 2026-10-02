@@ -36,4 +36,6 @@ When the user supplies an answer, date the decision, record its source and affec
 
 For substantive decisions append: date; decision ID; requirement or observed problem; chosen behavior; alternatives; data migration/privacy impact; affected task IDs; verification needed; status (`provisional`, `confirmed_by_user`, `superseded`). Preserve the previous decision's meaning and link to its replacement. Routine component naming does not require an architecture decision record.
 
-No implementation-specific decisions beyond the defaults above have been made yet.
+2026-10-02 · D13 (provisional implementation): Use pinned Next.js 16.3.8, React 19.3.0, TypeScript 5.9.3, better-sqlite3 13.0.3 and npm lockfile for the one-server local prototype. Node.js 22.13+ is required by the combined package set; verification here used Node.js 25.4.0. ESLint 9.39.2 remains pinned because upgrading to 10.12.0 failed in the current Next React rule (`contextOrFilename.getFilename`); revisit after dependency compatibility changes. No data migration impact. Affected B01–B05; verify clean install/build and future dependency upgrades.
+
+2026-10-02 · D14 (provisional implementation): Keep synthetic curriculum metadata and original learning content in the app with no copied official expectation wording. Map original concepts to SNC1W expectation codes as `candidate` until actual alignment review. Candidate external video/simulation links appear only in reviewer preview; original text remains the supported route. Affected B06–B08, B12; review each item and rights before a real-data pilot.

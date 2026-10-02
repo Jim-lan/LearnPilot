@@ -1,33 +1,35 @@
 # LearnPilot build state
 
-Last updated: 2026-10-02 by the architecture/documentation task.
+Last updated: 2026-10-02 by the first application build task.
 
-This is the single implementation status record. Instructions and task cards are prepared; no application code, dependencies, database or runtime tests exist yet. Preparing a task guide does not complete that task.
+This is the single implementation status record. M0 is implemented; a synthetic M1 learning path is runnable. The app is not ready for real student information.
 
 ## Resume checkpoint
 
-- Current phase: ready for implementation with documented provisional synthetic defaults.
-- Current task: none in progress.
-- Next task: B01 in [M0 foundation](tasks/M0-foundation.md).
-- Exact next action: inspect the repository, read decisions.md and contracts C01–C04, choose and pin compatible runtime/framework/package-manager versions, and begin B01. Record the chosen commands here only after they exist.
-- Default authorized-build interpretation: follow the active user's implementation request; the current completed request only prepared resources. For a later continuous-build request, use the sequence in README.md.
-- Current owner: none. Claim only an actual task you are working on.
-- Uncommitted/partial implementation: none created by this preparation task; inspect current files before relying on that fact in a later session.
-- Next engineering milestone: M0.
+- Current phase: M1 synthetic learning-loop implementation.
+- Current task: M1 vertical slice verified; B07–B08 and B11–B15 remain incomplete against their full cards. A partial B18 correction path is also implemented.
+- Next task: finish B07/B08 resource review and item rubric scope, then B11–B15 acceptance cases before M2 attachment work.
+- Exact next action: inspect the current Git state, then add a controlled resource-review path, explanation-item review behavior, and a later-check browser fixture. Preserve the working synthetic loop and the seven numbered migrations.
+- Default authorized-build interpretation: this user request started the app; future continuation should follow the active request scope and the sequence in README.md.
+- Current owner: current build task until handoff.
+- Working implementation: synthetic setup, Today, practice with assistance provenance, Progress, and manual evidence revision/correction work through a production browser run. Inspect `git status` before changing files; the first application build is being committed and published at this checkpoint.
+- Running process: a local production smoke server may still be serving `127.0.0.1:3000` with private synthetic data under `/private/tmp/learnpilot-ui-smoke-codex`; check whether it is running before reusing that port. No real student data was used.
+- Data/migration effects: schema 7 is current and upgraded the existing synthetic smoke database on restart; migration tests passed. New runs create a private SQLite database outside source.
+- Next engineering milestone: finish M1, then M2.
 - Real-data pilot: not ready; O01–O06 remain unresolved as applicable.
 
 ## Command registry
 
 | Capability | Actual command | Last result |
 | --- | --- | --- |
-| Install | Not selected | Not run |
-| Development start | Not implemented | Not run |
-| Production build/start | Not implemented | Not run |
-| Lint/typecheck | Not implemented | Not run |
-| Unit/integration tests | Not implemented | Not run |
-| Browser tests | Not implemented | Not run |
-| Database migrate | Not implemented | Not run |
-| Demo seed | Not implemented | Not run |
+| Install | `npm ci` | Passed in workspace and a separate temporary clean copy on 2026-10-02 |
+| Development start | `npm run dev` | Command configured; not separately smoke-tested |
+| Production build/start | `npm run build`; `LEARNPILOT_DATA_DIR=/private/tmp/learnpilot-ui-smoke-codex npm run start` | Build passed; loopback server and browser flow passed 2026-10-02 |
+| Lint/typecheck | `npm run lint`; `npm run typecheck` | Passed 2026-10-02 |
+| Unit/integration tests | `npm test` | 12 tests passed through migration 7 on 2026-10-02 |
+| Browser tests | Manual in-app browser against `http://127.0.0.1:3000` | Setup → Today → hinted practice → fresh answer → Progress → manual evidence review → correction/history passed 2026-10-02 |
+| Database migrate | Automatic numbered migrations on first database open | Restart/idempotency/foreign-key/rollback tests passed through schema 7 |
+| Demo seed | Save synthetic setup in `/setup` (calls idempotent pack importer) | Passed in browser; 24 item bank loaded |
 | Backup/restore | Not implemented | Not run |
 
 Replace placeholders with actual commands and dates. Keep command results factual. Never put a provider key or private student content in this file.
@@ -38,24 +40,24 @@ Statuses and the distinction between engineering completion and pilot readiness 
 
 | Task | Milestone | Status | Engineering evidence or next step |
 | --- | --- | --- | --- |
-| B01 | M0 | pending | Scaffold and command choices not started |
-| B02 | M0 | pending | Runtime paths/config not implemented |
-| B03 | M0 | pending | Schema and migrations not implemented |
-| B04 | M0 | pending | UI shell and request protections not implemented |
-| B05 | M0 | pending | Fake model and contracts not implemented |
-| B06 | M1 | pending | Content pack and import not implemented; genuine source review remains separate |
-| B07 | M1 | pending | Catalogue/fallback not implemented; candidate links are not approved |
-| B08 | M1 | pending | Original items and validation not created |
-| B09 | M1 | pending | Setup and context not implemented |
-| B10 | M1 | pending | Manual evidence and review not implemented |
-| B11 | M1 | pending | Learning policy not implemented |
-| B12 | M1 | pending | Target/resource selection not implemented |
-| B13 | M1 | pending | Session and attempts not implemented |
-| B14 | M1 | pending | Scoring/feedback not implemented |
-| B15 | M1 | pending | Reassessment/progress not implemented |
+| B01 | M0 | done | Pinned Next.js 16.3.8/React 19.3.0; full clean `npm ci`, tests, lint, typecheck, build pass; production loopback HTTP 200 |
+| B02 | M0 | done | Private configured root outside source, subdirectories and rejection tests; .env.example and ignore rules |
+| B03 | M0 | done | Numbered SQLite migrations 1–7; restart/foreign-key/rollback tests; health endpoint reports schema version |
+| B04 | M0 | done | Six-section shell, error/loading states, loopback bind, Host/Origin guard and no-store headers tested by curl |
+| B05 | M0 | done | Fake/disabled adapter, bounded draft validation and failure-state tests; no provider credentials needed |
+| B06 | M1 | done | Synthetic 0.1.0 pack, four concepts and candidate Ontario IDs; idempotent/version-conflict tests. Actual alignment review pending |
+| B07 | M1 | in_progress | Original text works and candidate Khan/PhET links stay in reviewer preview; item-level external review/availability workflow remains |
+| B08 | M1 | in_progress | 24 original numeric items, eight reserved, key/unit tests pass; explanation rubric and human content review remain |
+| B09 | M1 | done | Synthetic setup saved/reopened in browser; preferences and separate coverage persist; no weakness inferred from coverage |
+| B10 | M1 | done | Manual draft/edit/review UI passed synthetic browser check; teacher mark and local result remain separate |
+| B11 | M1 | in_progress | Descriptive policy/store and mixed-evidence browser flow work; full edge-case matrix and correction/recompute failure cases remain |
+| B12 | M1 | in_progress | Today selects a topic and original support, saves plan evidence/content versions; time/preference alternatives and empty-catalogue cases remain |
+| B13 | M1 | in_progress | Presented/hint/reveal/answer events persist; idempotent attempt integration test; resume and resource engagement event checks remain |
+| B14 | M1 | in_progress | Numeric/unit scoring and truthful supported/independent feedback pass; short-explanation review path remains |
+| B15 | M1 | in_progress | Review-due policy, reserved unseen items and Progress view exist; full later-cycle and exhausted-bank UI verification remain |
 | B16 | M2 | pending | Attachment ingestion not implemented |
 | B17 | M2 | pending | Source review not implemented |
-| B18 | M2 | pending | Corrections/recomputation not implemented |
+| B18 | M2 | in_progress | Manual reviewed correction creates immutable revision, rejects stale tab, repairs summary and invalidates plans; attachment/model dependencies remain |
 | B19 | M2 | pending | Reference updates/history not implemented |
 | B20 | M3 | pending | Optional provider adapter; fake tests can run without credentials |
 | B21 | M3 | pending | Optional extraction/mapping drafts not implemented |
@@ -92,7 +94,7 @@ Use `passed`, `failed`, `not_run` or `not_applicable` for actual engineering che
 
 ## Blockers and external inputs
 
-- No known blocker to starting synthetic M0.
+- No known blocker to continuing synthetic M1. M2 attachments and M4 backup/restore remain unimplemented, so real data is prohibited.
 - Real deployment/data decisions: [O01–O06](decisions.md).
 - Live model verification: no provider choice, credentials or spend authorization recorded for the application; implement mock-tested code without live calls.
 - Content review: existing source inventory is research, not a completed approved teaching catalogue.
@@ -100,7 +102,15 @@ Use `passed`, `failed`, `not_run` or `not_applicable` for actual engineering che
 
 ## Validation history
 
-No application validation has run. Documentation preparation checked task coverage and local references; that does not satisfy application gates.
+2026-10-02 B01: Added package.json, package-lock.json, TypeScript/ESLint/Next config and the six-section synthetic shell. `npm ci`, `npm run lint`, `npm run typecheck`, `npm run build` passed. `npm run start` bound 127.0.0.1:3000 and `curl` returned 200 for `/` and `/setup`. The sandbox required an approved escalation to bind loopback.
+
+2026-10-02 M0: `npm test` passed path, migration, request-guard and fake-adapter tests. With a temporary private data root, `/api/health` returned schema 1 before later migrations; hostile Host and Origin returned 403, valid same-origin POST reached 405. A clean temporary copy later ran full `npm ci`, 12 tests, lint, typecheck and build successfully. Migrations advanced through version 7 in later work. No real data or live provider was used.
+
+2026-10-02 M1 progress: `importDemoPack` imports four concepts, four candidate expectation references, six resources and 24 items; tests verify repeat import, new version and conflict/broken-reference rejection. The pack is explicitly synthetic. Candidate external resources and mappings are not approved for real recommendations.
+
+2026-10-02 browser integration: In an isolated synthetic data root, saved setup, started practice, used a hint, submitted a supported correct answer, advanced to a fresh item, submitted an independent correct answer, and inspected item-scoped Progress. Entered a fictional manual draft, published an incorrect local review, and saw Progress change to mixed evidence. `tests/flow.test.ts` additionally covers duplicate submission, restart persistence, correction from incorrect to correct, retained old revision, stale-tab rejection, and stale-plan submission refusal. No actual learner, teacher, or pilot outcome was observed.
+
+2026-10-02 correction/browser and final checks: Restarted the production server on the existing synthetic smoke database after migration 7; health reported schema 7, and Progress and Evidence returned 200. Corrected the fictional reviewed evidence through the browser, observed revision 2 and retained history. `npm test` passed 12/12, and `npm run lint`, `npm run typecheck`, and `npm run build` all passed after these changes. Backup, restore, deletion, uploads and real-data controls remain incomplete.
 
 For each completed task append a short entry: date, task, changed files, exact commands and exit/result, manual observations, unresolved limits. Link longer reports only when needed; keep the current checkpoint brief enough to read at every session start.
 

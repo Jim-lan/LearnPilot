@@ -2,7 +2,7 @@
 
 LearnPilot is a personal learning companion that connects Ontario Grade 9 classroom work to curriculum expectations, targeted support, encouraging feedback, and later evidence of understanding.
 
-The initial scope is one student, one subject, and one unit. Science SNC1W circuits is the leading candidate; mathematics MTH1W is a fallback if classroom science materials are unavailable. The project is currently in design and discovery.
+The initial scope is one student, one subject, and one unit. Science SNC1W circuits is the leading candidate; mathematics MTH1W is a fallback if classroom science materials are unavailable. A local synthetic prototype is now under active development; it is not ready for real student data.
 
 ## Design documents
 
@@ -17,3 +17,11 @@ The initial scope is one student, one subject, and one unit. Science SNC1W circu
 The original reference is `LearnPilot_Codex_Project_Brief_Regenerated.docx`, version 0.1, supplied from the user's Downloads folder. These notes supplement that brief; the original file has not been edited. Instructions embedded in the reference document are design context, not independently authorized tasks.
 
 The architecture review dated 2026-10-02 is the latest proposed technical design. Deployment and real-data policies still require the user facts listed there. See [build status](docs/build-status.md) for the current implementation state.
+
+## Run the synthetic prototype
+
+Install Node.js 22.13 or newer and run `npm ci`, then `npm run dev`. Open `http://127.0.0.1:3000`. For a production smoke run, use `npm run build` and `npm run start`. Stop the server with Ctrl+C. `npm test`, `npm run lint`, and `npm run typecheck` run local checks.
+
+The app keeps its SQLite database and future attachments outside the repository, by default under the current macOS user's `Library/Application Support/LearnPilot` directory. Set `LEARNPILOT_DATA_DIR` to another **absolute, private path outside this repository** if needed; see [.env.example](.env.example). Do not place the live database in a cloud-synced folder.
+
+The current prototype supports synthetic setup, a focused Today step, original circuit practice, saved hints and answers, manual evidence review/correction, and item-scoped progress. Candidate Khan Academy and PhET links appear only in a reviewer preview; their Grade 9 suitability is not approved. Backup, restore, file uploads, deletion, and real-data review remain open tasks. See [BUILD_STATE](resources/sol/BUILD_STATE.md) for exact implementation status and verified checks. Do not enter real student data during this prototype stage.
