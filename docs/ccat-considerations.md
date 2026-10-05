@@ -1,6 +1,6 @@
 # Grade 3 reasoning-screen considerations: conditional design note
 
-Status: CCAT-specific research and design only, 2026-10-05. No CCAT preparation content, book images, or test route has been imported. The school board and purchased book have not yet been identified. The learner clarified that the immediate request is for ordinary rule-finding and learning scenarios. Original repeating and growing pattern activities now live in Vincent's Math area as general practice, with feedback and fresh later-check items. Their answers are item-level observations, not an aptitude score or CCAT prediction.
+Status: CCAT-specific research and design only, 2026-10-05. No CCAT preparation content, book images, or test route has been imported. The school board and purchased book have not yet been identified. The user now requests a separate Vincent area with nine CCAT task types and strategy teaching; the conditional implementation specification is [U07](../resources/sol/tasks/U07-reasoning-practice.md). Original repeating and growing pattern activities remain in Vincent's Math area as general practice. Their answers are item-level observations, not an aptitude score or CCAT prediction.
 
 ## First gate: confirm the administering board's rules
 
@@ -24,4 +24,4 @@ The Canadian [Copyright Act](https://laws.justice.gc.ca/eng/acts/C-42/FullText.h
 2. The book's exact title, publisher, edition/year, and whether it is a printed book, workbook, or licensed digital product.
 3. Confirmation that a test-specific practice module is allowed. If not, keep the existing school-learning areas and do not import the book.
 
-After those inputs, add a scoped task card and acceptance cases. Never infer an official CCAT score or approval from LearnPilot practice. 
+The conditional [U07 task card](../resources/sol/tasks/U07-reasoning-practice.md) records the proposed separate subject, teaching approach, visual-accessibility requirements, and acceptance cases. Do not expose its practice content until the board rule is resolved. Never infer an official CCAT score or approval from LearnPilot practice.

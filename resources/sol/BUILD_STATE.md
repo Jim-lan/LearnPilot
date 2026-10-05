@@ -1,13 +1,13 @@
 # LearnPilot build state
 
-Last updated: 2026-10-05 after U06 speaker-only revision and browser checks.
+Last updated: 2026-10-05 after conditional U07 reasoning-area design.
 
 This is the single implementation status record. M0 is implemented; a synthetic M1 learning path is runnable. The app is not ready for real student information.
 
 ## Resume checkpoint
 
 - Current phase: M1 synthetic learning-loop implementation; home-network, reward, and two-profile extension implemented.
-- Current task: U06 speaker-only robot interaction is implemented and browser-checked. U04 CCAT-specific intake remains waiting on the administering board/book details. B07–B08, B09, and B11–B15 remain incomplete against their full cards; B18 remains partial.
+- Current task: U07 nine-category reasoning-area design is documented; learner-facing CCAT practice waits on the administering board's preparation rule (O07). U04 purchased-book intake also waits on book details. B07–B08, B09, and B11–B15 remain incomplete against their full cards; B18 remains partial.
 - Current Grade 3 scope: repeating and growing pattern scenarios sit in Math as ordinary learning practice. They do not use the purchased book, model a CCAT score or claim general reasoning ability. See D19. O07/D18 still gate any test-specific content.
 - Next task: finish B07/B08 resource review and item rubric scope, then B11–B15 acceptance cases before M2 attachment work.
 - Exact next action: inspect the current Git state, then add a controlled resource-review path, explanation-item review behavior, and a later-check browser fixture. Preserve the working synthetic loop, LAN boundary, rewards policy and nine numbered migrations. Review docs/home-network.md before changing deployment.
@@ -81,6 +81,7 @@ Statuses and the distinction between engineering completion and pilot readiness 
 | U04 | Requested design question | waiting_external | Board and book details requested. No CCAT-specific app content until the school board's preparation rule is known; current TDSB guidance forbids advance practice. Conditional plan in docs/ccat-considerations.md |
 | U05 | Requested extension | done | Original versioned repeating/growing rule pack under Vincent's Math; two practice examples and one reserved later-check per topic, one-tap answers, explanation feedback and existing topic/reward persistence. `npm test` 20/20, lint, typecheck and build passed; synthetic integration, same-origin HTTP and a fresh-tab in-app browser flow passed. |
 | U06 | Requested experience | done | Original SVG robot welcome with two profile buttons and no microphone; greeting, subject guide, concept, question, hint, revealed solution and feedback remain visible with repeatable speaker controls. French examples use the same control. Tests, lint, typecheck, build and loopback browser screens passed; audible quality and physical-device support remain unverified. See docs/interactive-experience.md and D21. |
+| U07 | Requested reasoning area | waiting_external | Separate Vincent-only Reasoning area, nine category strategies, original examples, accessible figures and acceptance checks specified in [U07 task card](tasks/U07-reasoning-practice.md). No learner-facing CCAT content until administering board's current preparation rule is known (O07); current TDSB rule forbids practice. No app code or book content added. |
 
 ## Gate evidence
 
@@ -104,7 +105,7 @@ Use `passed`, `failed`, `not_run` or `not_applicable` for actual engineering che
 ## Blockers and external inputs
 
 - LAN acceptance: user was asked to test another physical device. No reply is recorded yet. Router forwarding/VPN routes and outside-Wi-Fi reachability are not independently verified. This is a trusted home-subnet synthetic deployment, not authenticated or encrypted multi-user hosting.
-- CCAT request: board/test rules and book identity are unknown. TDSB's current Grade 3 policy would prohibit practice and could invalidate its screening results. Do not start U04 implementation merely because the purchased book exists; resolve O07.
+- CCAT request: board/test rules and book identity are unknown. TDSB's current Grade 3 policy would prohibit practice and could invalidate its screening results. U07 learner-facing examples and U04 book intake remain pending O07. The original-content and UX design is ready in the U07 task card; do not activate CCAT practice merely because a workbook was purchased.
 - Dependency audit on 2026-10-05: runtime container prune/audit reported zero production advisories. Full `npm audit` reported five high entries in the dev-only Next ESLint → fast-glob → micromatch → braces chain (GHSA-vfj7-8cjw-p6xm). No blind major downgrade was applied; resolve upstream compatibility during dependency maintenance. This is not a completed B27 security assessment.
 
 - No known blocker to continuing synthetic M1. M2 attachments and M4 backup/restore remain unimplemented, so real data is prohibited.
@@ -140,6 +141,8 @@ For each completed task append a short entry: date, task, changed files, exact c
 2026-10-05 U06: Added an original SVG robot welcome, spoken-on-tap greeting, on-device-only name recognition with explicit browser pack installation, unambiguous-name parser, tap fallback, robot subject invitation, and robot session prompt/feedback with optional speech playback. The root URL now opens the welcome even with a previously selected profile. `npm test` passed 21/21, and lint/typecheck/build passed. A fresh loopback browser showed the robot, tapped Alex and reached the guided Grade 9 subjects; an existing Vincent session showed the robot speaking position with saved correct feedback. Browser voice availability reported a downloadable on-device English pack; its explicit install completed, but no actual microphone speech recognition or voice quality was tested. The LAN browser rendered the same welcome and correctly declined microphone use on plain HTTP; a 390px viewport had no horizontal overflow. The app's data model, scoring, rewards, LAN boundary and provider-disabled state were unchanged. Trusted HTTPS and physical phone voice testing remain open.
 
 2026-10-05 U06 revision (D21 supersedes the prior voice-input slice): Removed microphone recognition, browser voice-pack installation, spoken-name parser and related test. Retained the two profile buttons and original robot. Added one reusable labelled speaker control for visible greeting, subject guidance, concepts, questions, hints, revealed solutions, saved feedback and French example text. `npm test` passed 20/20; lint, typecheck, production build and `git diff --check` passed. Restarted the synthetic loopback and LAN previews; the in-app browser showed the no-mic welcome, Vincent subjects, Math concept text/read-aloud control, and a saved rule question/feedback with separate speaker controls. A same-origin synthetic profile POST returned 303 and learner cookie; the browser loaded Vincent's subjects. Speaker buttons were clicked without a visible page error, but actual sound quality and phone playback were not independently measured. No persistence or scoring migration.
+
+2026-10-05 U07 conditional design: Rechecked the official TDSB universal-screening page, which says advance CCAT-7 preparation/practice is not permitted and prior exposure can invalidate results; Nelson's public brochure identifies the nine requested task types. The user's board and its instructions remain unknown. Wrote a separate Vincent Reasoning-area task card with nine strategy guides, original-content and accessible-diagram requirements, versioning and acceptance checks. Updated D22 and the conditional research note. No learner-facing CCAT practice, examples, book content, schema or app code were added; `git diff --check` passed. Application tests were not rerun for this documentation-only change.
 
 ## Next-session handoff template
 
