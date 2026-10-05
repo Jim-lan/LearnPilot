@@ -1,19 +1,19 @@
 # LearnPilot build state
 
-Last updated: 2026-10-05 after U05 everyday-rule scenarios and local verification.
+Last updated: 2026-10-05 after U06 robot welcome and browser checks.
 
 This is the single implementation status record. M0 is implemented; a synthetic M1 learning path is runnable. The app is not ready for real student information.
 
 ## Resume checkpoint
 
 - Current phase: M1 synthetic learning-loop implementation; home-network, reward, and two-profile extension implemented.
-- Current task: U05 original everyday-rule practice is verified for the synthetic Vincent profile. U04 CCAT-specific intake remains waiting on the administering board/book details. B07–B08, B09, and B11–B15 remain incomplete against their full cards; B18 remains partial.
+- Current task: U06 robot-led welcome is implemented for visual/tap and on-device-capable voice initiation. Full voice-on-Wi-Fi requires trusted HTTPS and physical-device validation. U04 CCAT-specific intake remains waiting on the administering board/book details. B07–B08, B09, and B11–B15 remain incomplete against their full cards; B18 remains partial.
 - Current Grade 3 scope: repeating and growing pattern scenarios sit in Math as ordinary learning practice. They do not use the purchased book, model a CCAT score or claim general reasoning ability. See D19. O07/D18 still gate any test-specific content.
 - Next task: finish B07/B08 resource review and item rubric scope, then B11–B15 acceptance cases before M2 attachment work.
 - Exact next action: inspect the current Git state, then add a controlled resource-review path, explanation-item review behavior, and a later-check browser fixture. Preserve the working synthetic loop, LAN boundary, rewards policy and nine numbered migrations. Review docs/home-network.md before changing deployment.
 - Default authorized-build interpretation: this user request started the app; future continuation should follow the active request scope and the sequence in README.md.
 - Current owner: current build task until handoff.
-- Working implementation: Alex/Vincent profile chooser, subject/topic selector, synthetic Today/practice, topic-wide outside help, French browser speech examples, original Grade 3 rule scenarios, per-learner Progress, manual evidence correction, LAN sharing and encouragement points. Inspect `git status` and `git log` before resuming.
+- Working implementation: robot-led Alex/Vincent profile chooser with tap and conditional on-device speech input, guided subject selector, robot practice prompt/feedback with spoken-on-tap playback, synthetic Today/practice, topic-wide outside help, French browser speech examples, original Grade 3 rule scenarios, per-learner Progress, manual evidence correction, LAN sharing and encouragement points. Inspect `git status` and `git log` before resuming.
 - Running process: native LAN launcher on interface en0, port 3000, with backend 127.0.0.1:3100 and synthetic data at `/private/tmp/learnpilot-lan-rewards-oct5`; restarted after U03 and returned health/schema 9. A separate loopback U03 browser preview is running on port 3004 and `/private/tmp/learnpilot-family-smoke-oct5`. Check current address with `npm run lan:info`. Optional container test was stopped gracefully; its synthetic named volume is retained. A previous computer-only server may still own 127.0.0.1:3000; inspect before stopping or replacing any process.
 - Data/migration effects: schema 9 adds a durable outside-help flag to sessions. The original schema-8 reward ledger remains. Alex and Vincent use new durable learner IDs; historical `demo:student:local` records are preserved separately and are not automatically reclassified. Migration/restart/isolation tests pass. Native and Docker storage are separate by default; no records were transferred. No real student data was used by the development tests.
 - Next engineering milestone: finish M1, then M2.
@@ -27,8 +27,8 @@ This is the single implementation status record. M0 is implemented; a synthetic 
 | Development start | `npm run dev` | Command configured; not separately smoke-tested |
 | Production build/start | `npm run build`; `LEARNPILOT_DATA_DIR=/private/tmp/learnpilot-family-smoke-oct5 npm run start -- -p 3004` | Build and U03 loopback browser flow passed 2026-10-05 |
 | Lint/typecheck | `npm run lint`; `npm run typecheck` | Passed 2026-10-05 |
-| Unit/integration tests | `npm test` | 20 tests passed through migration 9 on 2026-10-05, including U05 rule feedback, persistence, learner isolation, reward and fresh later-check item |
-| Browser tests | Manual in-app browser against `http://127.0.0.1:3004` | U05 fresh tab: Vincent → Math → repeating rule → wrong choice with explanation → fresh correct choice with +10 points → topic shows saved mixed evidence. Earlier U03 French flow also passed. |
+| Unit/integration tests | `npm test` | 21 tests passed through migration 9 on 2026-10-05, including U06 unambiguous spoken-name parsing and U05 rule flow |
+| Browser tests | Manual in-app browser against `http://127.0.0.1:3004` and LAN URL | U06 robot welcome rendered, tap chose Alex and opened guided subjects; existing Vincent answer showed robot feedback. On-device English pack installed in loopback browser, but real microphone recognition was not exercised. LAN mic tap showed secure-context fallback; phone-sized view fit without horizontal overflow. Earlier U05/U03 flows passed. |
 | Database migrate | Automatic numbered migrations on first database open | Restart/idempotency/foreign-key/rollback tests passed through schema 9 |
 | Demo seed | Choose Alex or Vincent in `/setup` (calls idempotent pack importers); existing profiles import on Subjects/Today load | Science, family and original rule packs import idempotently; U05 HTTP render and importer test passed |
 | LAN native | `LEARNPILOT_LAN_INTERFACE=en0 npm run start:lan` | Production build, LAN browser mutations, points and header/peer rejection passed 2026-10-05 |
@@ -51,7 +51,7 @@ Statuses and the distinction between engineering completion and pilot readiness 
 | B06 | M1 | done | Synthetic 0.1.0 science pack and 1.0.0 original family starter pack import idempotently; science Ontario IDs are candidates and new subject packs are unmapped. Actual alignment review pending |
 | B07 | M1 | in_progress | Original text works and candidate Khan/PhET links stay in reviewer preview; item-level external review/availability workflow remains |
 | B08 | M1 | in_progress | 24 science numeric items and 21 exact-response family starter items, with reserved reassessments; scorer tests pass. Open-response rubric and human content review remain |
-| B09 | M1 | in_progress | Alex/Vincent selection and per-learner persistence verified. Prior editable goals/time/coverage form was replaced at the user’s request; future profile-context editing remains |
+| B09 | M1 | in_progress | Robot-led Alex/Vincent tap selection and per-learner persistence verified. Conditional on-device voice parsing is implemented but actual microphone recognition remains untested; future profile-context editing remains |
 | B10 | M1 | done | Manual draft/edit/review UI passed synthetic browser check; teacher mark and local result remain separate |
 | B11 | M1 | in_progress | Descriptive policy/store and mixed-evidence browser flow work; full edge-case matrix and correction/recompute failure cases remain |
 | B12 | M1 | in_progress | Today selects a topic and original support, saves plan evidence/content versions; time/preference alternatives and empty-catalogue cases remain |
@@ -80,6 +80,7 @@ Statuses and the distinction between engineering completion and pilot readiness 
 | U03 | Requested extension | done | Alex/Vincent chooser, grade-specific subjects, separate topic summaries/points, persisted quiz-wide outside help, French word/sentence speech controls and exact-response starter items. 19 tests and loopback browser flow pass; real curriculum mapping, spoken quality and real-data access control remain pending |
 | U04 | Requested design question | waiting_external | Board and book details requested. No CCAT-specific app content until the school board's preparation rule is known; current TDSB guidance forbids advance practice. Conditional plan in docs/ccat-considerations.md |
 | U05 | Requested extension | done | Original versioned repeating/growing rule pack under Vincent's Math; two practice examples and one reserved later-check per topic, one-tap answers, explanation feedback and existing topic/reward persistence. `npm test` 20/20, lint, typecheck and build passed; synthetic integration, same-origin HTTP and a fresh-tab in-app browser flow passed. |
+| U06 | Requested experience | in_progress | Original SVG robot welcome, spoken-on-tap greeting, conditional on-device spoken-name selection, tap fallback, guided subject and session prompt/feedback implemented. Browser tap flow and LAN insecure fallback verified; real mic recognition and Wi-Fi voice need a trusted HTTPS origin/device checks. No cloud speech fallback. See docs/interactive-experience.md and D20. |
 
 ## Gate evidence
 
@@ -103,6 +104,7 @@ Use `passed`, `failed`, `not_run` or `not_applicable` for actual engineering che
 ## Blockers and external inputs
 
 - LAN acceptance: user was asked to test another physical device. No reply is recorded yet. Router forwarding/VPN routes and outside-Wi-Fi reachability are not independently verified. This is a trusted home-subnet synthetic deployment, not authenticated or encrypted multi-user hosting.
+- U06 voice-on-Wi-Fi: current HTTP private-IP origin is not a secure context for microphone use in normal browsers. A trusted HTTPS solution for the private LAN plus per-device microphone/browser checks is pending; do not bypass certificate warnings or switch to cloud transcription. Actual speech capture/recognition has not been tested.
 - CCAT request: board/test rules and book identity are unknown. TDSB's current Grade 3 policy would prohibit practice and could invalidate its screening results. Do not start U04 implementation merely because the purchased book exists; resolve O07.
 - Dependency audit on 2026-10-05: runtime container prune/audit reported zero production advisories. Full `npm audit` reported five high entries in the dev-only Next ESLint → fast-glob → micromatch → braces chain (GHSA-vfj7-8cjw-p6xm). No blind major downgrade was applied; resolve upstream compatibility during dependency maintenance. This is not a completed B27 security assessment.
 
@@ -135,6 +137,8 @@ For each completed task append a short entry: date, task, changed files, exact c
 2026-10-05 U04 research/documentation: Checked current official TDSB screening and French-program pages, Nelson's CCAT 7 brochure, and the Canadian Copyright Act. Wrote docs/ccat-considerations.md and O07/D18. No app code, book photos, student data, or CCAT-like items were added; no application tests were needed for documentation-only changes. Await the user's board and book details before a conditional implementation task.
 
 2026-10-05 U05: Added `src/domain/rule-content.ts`, wired it into Vincent's Math catalogue, answer choices and explanatory feedback, and imported it idempotently for existing profiles. An integration test records an incorrect rule choice, a correct fresh example, separate Alex state, one 10-point reward, retained observations after restart and a reserved later-check item. Corrected mixed-evidence wording so it does not assume which result came first. `npm test` passed 20/20; `npm run lint`, `npm run typecheck` and `npm run build` passed. Restarted loopback port 3004 and native LAN port 3000 against their existing synthetic data roots; a same-origin local HTTP POST to `/setup` returned 303 with Vincent cookie, and the rendered Math topic contained the rule title and Start practice. An existing browser tab did not submit its profile form after the server rebuild; a fresh tab succeeded. The fresh-tab in-app browser flow selected Vincent, opened Math and a repeating-rule topic, saved a wrong choice and saw a specific explanation, answered a new example correctly, received +10 points, and saw the saved mixed-evidence topic summary. No purchased book content, real student data, schema change, provider call, or CCAT-specific item was added.
+
+2026-10-05 U06: Added an original SVG robot welcome, spoken-on-tap greeting, on-device-only name recognition with explicit browser pack installation, unambiguous-name parser, tap fallback, robot subject invitation, and robot session prompt/feedback with optional speech playback. The root URL now opens the welcome even with a previously selected profile. `npm test` passed 21/21, and lint/typecheck/build passed. A fresh loopback browser showed the robot, tapped Alex and reached the guided Grade 9 subjects; an existing Vincent session showed the robot speaking position with saved correct feedback. Browser voice availability reported a downloadable on-device English pack; its explicit install completed, but no actual microphone speech recognition or voice quality was tested. The LAN browser rendered the same welcome and correctly declined microphone use on plain HTTP; a 390px viewport had no horizontal overflow. The app's data model, scoring, rewards, LAN boundary and provider-disabled state were unchanged. Trusted HTTPS and physical phone voice testing remain open.
 
 ## Next-session handoff template
 

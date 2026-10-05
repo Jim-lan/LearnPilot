@@ -8,6 +8,7 @@ import { loadObservations } from "@/server/learning-store";
 import { rewardTotals } from "@/server/rewards";
 import { RewardSummary } from "../components/reward-summary";
 import { ensureStarterPacks } from "@/server/content-import";
+import { RobotGuide } from "../components/robot-guide";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +18,7 @@ export default async function SubjectsPage() {
   const db = getDb();
   ensureStarterPacks(db);
   const groups = subjectsFor(learner.key);
-  return <div className="page"><p className="eyebrow">{learner.note}</p><h1>Where would you like to begin, {learner.name}?</h1><p className="lead">Choose a subject, then a topic. Your saved work stays in your own profile.</p>
+  return <div className="page"><p className="eyebrow">{learner.note}</p><h1>Choose your next adventure.</h1><RobotGuide line={`Welcome back, ${learner.name}! What would you like to explore today?`} /><p className="lead">Choose a subject, then a topic. Your saved work stays in your own profile.</p>
     <RewardSummary {...rewardTotals(db, learner.id)} />
     <div className="card-grid">{groups.map(group => {
       const started = group.concepts.filter(c => loadObservations(db, learner.id, c.id).length > 0).length;

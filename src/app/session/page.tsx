@@ -10,6 +10,7 @@ import { attemptReward, rewardTotals } from "@/server/rewards";
 import { RewardSummary } from "../components/reward-summary";
 import { AnswerCelebration } from "../components/answer-celebration";
 import { SpeakFrench } from "../components/speak-french";
+import { RobotGuide } from "../components/robot-guide";
 
 export const dynamic = "force-dynamic";
 
@@ -41,6 +42,7 @@ export default async function SessionPage({ searchParams }: { searchParams: Prom
   const answerKey = JSON.parse(item.answer_json) as AnswerKey;
   const french = frenchExamples[item.concept_id];
   return <div className="page"><p className="eyebrow">{learner.name} · {session.mode === "reassessment" ? "Fresh later check" : "Focused practice"}</p><h1>{item.concept_title}</h1><p className="lead">{item.prompt}</p>
+    <RobotGuide line={attempt ? (attempt.feedback_text ?? "Your answer was saved; scoring is pending.") : "What do you notice? Take your time, and ask for a hint if you want one."} />
     <RewardSummary {...rewardTotals(db, learner.id)} />
     {attempt && points > 0 && <AnswerCelebration key={attempt.id} attemptId={attempt.id} points={points} animate={celebrate === attempt.id} />}
     <p><Link className="text-link" href={back}>← Topic</Link></p>
@@ -50,7 +52,7 @@ export default async function SessionPage({ searchParams }: { searchParams: Prom
     {session.plan_status === "stale" && <div className="notice">The evidence behind this plan changed. Choose a refreshed next step before submitting more work.</div>}
     {hinted && <div className="notice"><strong>Hint:</strong> {item.hint}</div>}
     {revealed && <div className="notice"><strong>Solution:</strong> {displayAnswer(answerKey)}. {answerKey.kind === "text" && answerKey.explanation} A revealed answer cannot count as independent evidence.</div>}
-    {attempt ? <article className="feature-card"><span className="tag">Saved answer · {attempt.score_status}</span><h2>{attempt.answer}</h2><p>{attempt.feedback_text ?? "Your answer was saved; scoring is pending."}</p><p className="muted">{attempt.assistance_status === "known_none" && !attempt.prior_exposure ? "No support was recorded for this fresh item." : "Support or prior exposure is recorded; this is not an independent check."}</p><p>Checked answer: {displayAnswer(answerKey)}</p>{!session.ended_at && session.plan_status !== "stale" && <form action={nextQuestion}><input type="hidden" name="sessionId" value={id} /><input type="hidden" name="itemId" value={item.id} /><button className="button" type="submit">Try the next question</button></form>}</article>
+    {attempt ? <article className="feature-card"><span className="tag">Saved answer · {attempt.score_status}</span><h2>{attempt.answer}</h2><p className="muted">{attempt.assistance_status === "known_none" && !attempt.prior_exposure ? "No support was recorded for this fresh item." : "Support or prior exposure is recorded; this is not an independent check."}</p><p>Checked answer: {displayAnswer(answerKey)}</p>{!session.ended_at && session.plan_status !== "stale" && <form action={nextQuestion}><input type="hidden" name="sessionId" value={id} /><input type="hidden" name="itemId" value={item.id} /><button className="button" type="submit">Try the next question</button></form>}</article>
     : session.ended_at || session.plan_status === "stale" ? <div className="feature-card"><p>This question cannot be submitted in the current session.</p><Link className="button" href={back}>Choose a refreshed session</Link></div>
     : <div className="feature-card"><span className="tag">{answerKey.kind === "number" ? "Answer with a number and unit" : answerKey.kind === "text" && answerKey.choices ? "Look for the rule, then choose" : "Write a short answer"}</span><form action={submitAnswer} className="answer-form"><input type="hidden" name="sessionId" value={id} /><input type="hidden" name="itemId" value={item.id} /><input type="hidden" name="submissionKey" value={randomUUID()} />{answerKey.kind === "text" && answerKey.choices
       ? <div className="choice-grid" aria-label="Choose one answer">{answerKey.choices.map(choice => <button key={choice} type="submit" name="answer" value={choice} className="secondary-button">{choice}</button>)}</div>
