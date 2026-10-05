@@ -1,8 +1,8 @@
 # LearnPilot
 
-LearnPilot is a personal learning companion that connects Ontario Grade 9 classroom work to curriculum expectations, targeted support, encouraging feedback, and later evidence of understanding.
+LearnPilot is a local learning companion with separate synthetic starter profiles for Alex (Grade 9) and Vincent (Grade 3 French immersion). It connects practice to targeted support, encouraging feedback, and later evidence of understanding.
 
-The initial scope is one student, one subject, and one unit. Science SNC1W circuits is the leading candidate; mathematics MTH1W is a fallback if classroom science materials are unavailable. A local synthetic prototype is now under active development; it is not ready for real student data.
+The original design started with one Grade 9 science unit. The current synthetic prototype also has small original Math and English examples for both learners, plus French words and sentences for Vincent. Only the Grade 9 science pack has candidate Ontario expectation IDs; the newer subjects are not officially curriculum-mapped. The app is not ready for real student data.
 
 ## Design documents
 
@@ -24,7 +24,7 @@ Install Node.js 22.13 or newer and run `npm ci`, then `npm run dev`. Open `http:
 
 The app keeps its SQLite database and future attachments outside the repository, by default under the current macOS user's `Library/Application Support/LearnPilot` directory. Set `LEARNPILOT_DATA_DIR` to another **absolute, private path outside this repository** if needed; see [.env.example](.env.example). Do not place the live database in a cloud-synced folder.
 
-The current prototype supports synthetic setup, a focused Today step, original circuit practice, saved hints and answers, manual evidence review/correction, and item-scoped progress. Candidate Khan Academy and PhET links appear only in a reviewer preview; their Grade 9 suitability is not approved. Backup, restore, file uploads, deletion, and real-data review remain open tasks. See [BUILD_STATE](resources/sol/BUILD_STATE.md) for exact implementation status and verified checks. Do not enter real student data during this prototype stage.
+The current prototype lets you choose Alex or Vincent, select a subject/topic, use original practice items, save hints and answers, review/correct manual evidence, and see separate topic progress and points. An outside-help button applies from the time it is tapped through the rest of that topic quiz. Vincent's French topics offer browser speech playback for example words and sentences, with no voice recording or pronunciation score. The profile picker is not a password login: anyone who can reach this synthetic app can choose either profile. Candidate Khan Academy and PhET links remain in reviewer preview; their suitability is not approved. Backup, restore, file uploads, deletion, and real-data review remain open tasks. See [BUILD_STATE](resources/sol/BUILD_STATE.md) for exact implementation status and verified checks. Do not enter real student data during this prototype stage.
 
 ## Home Wi-Fi and encouragement
 

@@ -285,4 +285,9 @@ export const migrations: Migration[] = [
       ) WHERE position = 1;
     `,
   },
+  {
+    version: 9,
+    name: "topic_wide_outside_help",
+    sql: "ALTER TABLE sessions ADD COLUMN outside_help_active INTEGER NOT NULL DEFAULT 0 CHECK (outside_help_active IN (0, 1));",
+  },
 ];

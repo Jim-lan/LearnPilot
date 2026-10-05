@@ -1,20 +1,20 @@
 # LearnPilot build state
 
-Last updated: 2026-10-05 after the home-network and encouragement feature request.
+Last updated: 2026-10-05 after the two-profile, subject, French listening, and quiz-wide help update.
 
 This is the single implementation status record. M0 is implemented; a synthetic M1 learning path is runnable. The app is not ready for real student information.
 
 ## Resume checkpoint
 
-- Current phase: M1 synthetic learning-loop implementation; requested home-network and reward extension implemented.
-- Current task: U01 home-network access and U02 encouragement points verified in synthetic engineering checks. B07–B08 and B11–B15 remain incomplete against their full cards; B18 remains partial.
+- Current phase: M1 synthetic learning-loop implementation; home-network, reward, and two-profile extension implemented.
+- Current task: U03 two-profile/subject/French/quiz-wide help extension verified in synthetic engineering and loopback browser checks. B07–B08, B09, and B11–B15 remain incomplete against their full cards; B18 remains partial.
 - Next task: finish B07/B08 resource review and item rubric scope, then B11–B15 acceptance cases before M2 attachment work.
-- Exact next action: inspect the current Git state, then add a controlled resource-review path, explanation-item review behavior, and a later-check browser fixture. Preserve the working synthetic loop, LAN boundary, rewards policy and eight numbered migrations. Review docs/home-network.md before changing deployment.
+- Exact next action: inspect the current Git state, then add a controlled resource-review path, explanation-item review behavior, and a later-check browser fixture. Preserve the working synthetic loop, LAN boundary, rewards policy and nine numbered migrations. Review docs/home-network.md before changing deployment.
 - Default authorized-build interpretation: this user request started the app; future continuation should follow the active request scope and the sequence in README.md.
 - Current owner: current build task until handoff.
-- Working implementation: synthetic setup, Today, practice with assistance provenance, Progress, manual evidence correction, LAN sharing and encouragement points. Initial build was published as 3885064; the current extension is recorded in the following Git commit. Inspect `git status` and `git log` before resuming.
-- Running process: native LAN launcher left on interface en0, port 3000, with backend 127.0.0.1:3100 and synthetic data at `/private/tmp/learnpilot-lan-rewards-oct5`. Check current address with `npm run lan:info`. Optional container test was stopped gracefully; its synthetic named volume is retained. A previous computer-only server may still own 127.0.0.1:3000; inspect before stopping or replacing any process.
-- Data/migration effects: schema 8 adds a reward ledger and backfills existing deterministic correct answers once per learner/item version. Migration/restart/deduplication tests pass. Native and Docker storage are separate by default; no records were transferred. No real student data was used by the development tests.
+- Working implementation: Alex/Vincent profile chooser, subject/topic selector, synthetic Today/practice, topic-wide outside help, French browser speech examples, per-learner Progress, manual evidence correction, LAN sharing and encouragement points. Initial build was published as 3885064; the current extension is recorded in the following Git commit. Inspect `git status` and `git log` before resuming.
+- Running process: native LAN launcher on interface en0, port 3000, with backend 127.0.0.1:3100 and synthetic data at `/private/tmp/learnpilot-lan-rewards-oct5`; restarted after U03 and returned health/schema 9. A separate loopback U03 browser preview is running on port 3004 and `/private/tmp/learnpilot-family-smoke-oct5`. Check current address with `npm run lan:info`. Optional container test was stopped gracefully; its synthetic named volume is retained. A previous computer-only server may still own 127.0.0.1:3000; inspect before stopping or replacing any process.
+- Data/migration effects: schema 9 adds a durable outside-help flag to sessions. The original schema-8 reward ledger remains. Alex and Vincent use new durable learner IDs; historical `demo:student:local` records are preserved separately and are not automatically reclassified. Migration/restart/isolation tests pass. Native and Docker storage are separate by default; no records were transferred. No real student data was used by the development tests.
 - Next engineering milestone: finish M1, then M2.
 - Real-data pilot: not ready; O01–O06 remain unresolved as applicable.
 
@@ -24,12 +24,12 @@ This is the single implementation status record. M0 is implemented; a synthetic 
 | --- | --- | --- |
 | Install | `npm ci` | Passed in workspace and a separate temporary clean copy on 2026-10-02 |
 | Development start | `npm run dev` | Command configured; not separately smoke-tested |
-| Production build/start | `npm run build`; `LEARNPILOT_DATA_DIR=/private/tmp/learnpilot-ui-smoke-codex npm run start` | Build passed; loopback server and browser flow passed 2026-10-02 |
+| Production build/start | `npm run build`; `LEARNPILOT_DATA_DIR=/private/tmp/learnpilot-family-smoke-oct5 npm run start -- -p 3004` | Build and U03 loopback browser flow passed 2026-10-05 |
 | Lint/typecheck | `npm run lint`; `npm run typecheck` | Passed 2026-10-05 |
-| Unit/integration tests | `npm test` | 18 tests passed through migration 8 on 2026-10-05, including network policy, rewards and stale forms |
-| Browser tests | Manual in-app browser against `http://127.0.0.1:3000` | Setup → Today → hinted practice → fresh answer → Progress → manual evidence review → correction/history passed 2026-10-02 |
-| Database migrate | Automatic numbered migrations on first database open | Restart/idempotency/foreign-key/rollback tests passed through schema 8 |
-| Demo seed | Save synthetic setup in `/setup` (calls idempotent pack importer) | Passed in browser; 24 item bank loaded |
+| Unit/integration tests | `npm test` | 19 tests passed through migration 9 on 2026-10-05, including network policy, rewards and stale forms |
+| Browser tests | Manual in-app browser against `http://127.0.0.1:3004` | Vincent → French → help once → two supported correct answers → Alex with zero points passed 2026-10-05; earlier manual evidence flow passed 2026-10-02 |
+| Database migrate | Automatic numbered migrations on first database open | Restart/idempotency/foreign-key/rollback tests passed through schema 9 |
+| Demo seed | Choose Alex or Vincent in `/setup` (calls idempotent pack importers) | Passed in browser; original science and family starter banks loaded |
 | LAN native | `LEARNPILOT_LAN_INTERFACE=en0 npm run start:lan` | Production build, LAN browser mutations, points and header/peer rejection passed 2026-10-05 |
 | LAN Docker | `LEARNPILOT_LAN_INTERFACE=en0 npm run start:lan:docker` | Built, healthy, non-root, loopback-only publishing, profile persistence after restart/recreation and graceful shutdown passed 2026-10-05 (test ports 3001/3200) |
 | Backup/restore | Not implemented | Not run |
@@ -44,18 +44,18 @@ Statuses and the distinction between engineering completion and pilot readiness 
 | --- | --- | --- | --- |
 | B01 | M0 | done | Pinned Next.js 16.3.8/React 19.3.0; full clean `npm ci`, tests, lint, typecheck, build pass; production loopback HTTP 200 |
 | B02 | M0 | done | Private configured root outside source, subdirectories and rejection tests; .env.example and ignore rules |
-| B03 | M0 | done | Numbered SQLite migrations 1–8; restart/foreign-key/rollback tests; health endpoint reports schema version |
+| B03 | M0 | done | Numbered SQLite migrations 1–9; restart/foreign-key/rollback tests; health endpoint reports schema version |
 | B04 | M0 | done | Six-section shell and default loopback mode; authorized U01 LAN gateway/peer restriction, Host/Origin guard and no-store headers verified |
 | B05 | M0 | done | Fake/disabled adapter, bounded draft validation and failure-state tests; no provider credentials needed |
-| B06 | M1 | done | Synthetic 0.1.0 pack, four concepts and candidate Ontario IDs; idempotent/version-conflict tests. Actual alignment review pending |
+| B06 | M1 | done | Synthetic 0.1.0 science pack and 1.0.0 original family starter pack import idempotently; science Ontario IDs are candidates and new subject packs are unmapped. Actual alignment review pending |
 | B07 | M1 | in_progress | Original text works and candidate Khan/PhET links stay in reviewer preview; item-level external review/availability workflow remains |
-| B08 | M1 | in_progress | 24 original numeric items, eight reserved, key/unit tests pass; explanation rubric and human content review remain |
-| B09 | M1 | done | Synthetic setup saved/reopened in browser; preferences and separate coverage persist; no weakness inferred from coverage |
+| B08 | M1 | in_progress | 24 science numeric items and 21 exact-response family starter items, with reserved reassessments; scorer tests pass. Open-response rubric and human content review remain |
+| B09 | M1 | in_progress | Alex/Vincent selection and per-learner persistence verified. Prior editable goals/time/coverage form was replaced at the user’s request; future profile-context editing remains |
 | B10 | M1 | done | Manual draft/edit/review UI passed synthetic browser check; teacher mark and local result remain separate |
 | B11 | M1 | in_progress | Descriptive policy/store and mixed-evidence browser flow work; full edge-case matrix and correction/recompute failure cases remain |
 | B12 | M1 | in_progress | Today selects a topic and original support, saves plan evidence/content versions; time/preference alternatives and empty-catalogue cases remain |
 | B13 | M1 | in_progress | Presented/hint/reveal/answer events persist; idempotent attempt integration test; resume and resource engagement event checks remain |
-| B14 | M1 | in_progress | Numeric/unit scoring and truthful supported/independent feedback pass; short-explanation review path remains |
+| B14 | M1 | in_progress | Numeric/unit and exact-text scoring, with supported/independent feedback, pass; alternative correct phrasings and short-explanation review path remain |
 | B15 | M1 | in_progress | Review-due policy, reserved unseen items and Progress view exist; full later-cycle and exhausted-bank UI verification remain |
 | B16 | M2 | pending | Attachment ingestion not implemented |
 | B17 | M2 | pending | Source review not implemented |
@@ -75,7 +75,8 @@ Statuses and the distinction between engineering completion and pilot readiness 
 | B31 | M5 | waiting_external | Real student/reviewer/policy/elapsed-time evidence unavailable; does not block synthetic B32 |
 | B32 | M5 | pending | Synthetic release notes can follow B29/B30; real-pilot findings remain pending |
 | U01 | Requested extension | done | Host LAN gateway, native/Docker launch and shutdown, exact Host/Origin and peer tests pass; second physical device, router configuration and WAN checks not independently verified |
-| U02 | Requested extension | done | 10-point durable awards, 1.5-second celebration, reduced-motion CSS, totals in Today/Session/Progress; duplicates, assistance, wrong answers, migration, restart and stale-form tests pass |
+| U02 | Requested extension | done | 10-point durable awards, 1.5-second celebration, reduced-motion CSS, totals in Subjects/Session/Progress; duplicates, assistance, wrong answers, migration, restart and stale-form tests pass |
+| U03 | Requested extension | done | Alex/Vincent chooser, grade-specific subjects, separate topic summaries/points, persisted quiz-wide outside help, French word/sentence speech controls and exact-response starter items. 19 tests and loopback browser flow pass; real curriculum mapping, spoken quality and real-data access control remain pending |
 
 ## Gate evidence
 
@@ -124,6 +125,8 @@ Use `passed`, `failed`, `not_run` or `not_applicable` for actual engineering che
 2026-10-05 Docker verification: `docker compose build` passed using the pinned official Node image; `start:lan:docker` on test ports 3001/3200 became healthy. Docker inspect confirmed user `node` and only `127.0.0.1:3200` publishing. A fictional profile saved through the LAN browser persisted after container restart and final-image recreation. A bounded launcher smoke sent SIGTERM; exit 0 confirmed graceful gateway/container shutdown. The named test volume remains. No external/cloud deployment, router changes, student data or live AI calls were performed. Both screenshot/browser checks and network tests were run from this laptop; do not report physical phone/WAN validation without the user's evidence.
 
 For each completed task append a short entry: date, task, changed files, exact commands and exit/result, manual observations, unresolved limits. Link longer reports only when needed; keep the current checkpoint brief enough to read at every session start.
+
+2026-10-05 U03: Added a second versioned original synthetic starter pack, Alex/Vincent profile IDs and cookie selection, Grade 3/9 subjects/topics, per-learner page/action scoping, schema-9 quiz-wide outside-help flag, exact-response text scoring, and browser French speech examples. `npm run typecheck`, `npm test` (19/19), and `npm run build` passed; lint initially found two unused-import warnings, which were removed. Loopback browser smoke on port 3004 selected Vincent, opened French, activated outside help once, answered two questions, observed 10 then 20 points and assisted status, switched to Alex, and saw 0 points. Speech controls were clicked without a page error, but audio quality was not measured. The native LAN launcher was restarted with the existing synthetic data root; `curl --fail --silent --show-error http://192.168.2.182:3000/api/health` returned schema 9. No real students, teacher review or official Grade 3/9 mapping was used. The old local demo learner remains preserved separately.
 
 ## Next-session handoff template
 

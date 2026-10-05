@@ -1,6 +1,6 @@
 # Run LearnPilot on your home Wi-Fi
 
-The laptop runs the server and holds the SQLite database. Phones, tablets and other computers use a browser on the same local network. Keep the laptop awake and the server running. All connected devices share one synthetic learner, including review/edit access; this is not a separate-account system. Real student use remains gated by the unfinished recovery, deletion and privacy tasks.
+The laptop runs the server and holds the SQLite database. Phones, tablets and other computers use a browser on the same local network. Keep the laptop awake and the server running. The two named synthetic profiles keep progress separate, but every connected device can switch between them; these are not authenticated accounts. Real student use remains gated by the unfinished recovery, deletion and privacy tasks.
 
 ## Native laptop run
 

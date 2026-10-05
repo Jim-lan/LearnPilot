@@ -1,4 +1,5 @@
-export type AnswerKey = { kind: "number"; value: number; unit: string; tolerance: number };
+export type AnswerKey = { kind: "number"; value: number; unit: string; tolerance: number }
+  | { kind: "text"; accepted: string[]; display: string; caseSensitive?: boolean };
 export type DemoItem = {
   id: string;
   conceptId: string;
@@ -11,7 +12,7 @@ export type DemoItem = {
 export type DemoPack = {
   id: string; version: string; title: string; jurisdiction: string; courseCode: string; curriculumVersion: string; sourceUrl: string;
   expectations: string[];
-  concepts: { id: string; title: string; explanation: string; prerequisites: string[]; expectation: string }[];
+  concepts: { id: string; title: string; explanation: string; prerequisites: string[]; expectation?: string }[];
   resources: { id: string; conceptId: string; provider: string; format: string; url: string | null; purpose: string; reviewStatus: string; availability: string; fallback: string }[];
   items: DemoItem[];
 };

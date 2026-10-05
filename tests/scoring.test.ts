@@ -6,7 +6,10 @@ import { scoreNumber } from "../src/domain/scoring";
 test("all 24 checked demo keys score as correct and eight remain reserved", () => {
   assert.equal(demoPack.items.length, 24);
   assert.equal(demoPack.items.filter(item => item.mode === "reassessment").length, 8);
-  for (const item of demoPack.items) assert.equal(scoreNumber(`${item.answer.value} ${item.answer.unit}`, item.answer, false).status, "correct", item.id);
+  for (const item of demoPack.items) {
+    if (item.answer.kind !== "number") throw new Error("Unexpected text item");
+    assert.equal(scoreNumber(`${item.answer.value} ${item.answer.unit}`, item.answer, false).status, "correct", item.id);
+  }
 });
 
 test("scoring handles equivalent units, wrong units, invalid input and support honestly", () => {

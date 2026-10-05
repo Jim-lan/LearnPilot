@@ -90,7 +90,7 @@ try {
   gateway = createLanGateway({ ...selected, authority, backendPort });
   await new Promise((resolve, reject) => { gateway.once("error", reject); gateway.listen(publicPort, selected.address, resolve); });
   console.log(`LearnPilot home-network address: http://${authority}`);
-  console.log(`Interface ${selected.name}, subnet /${selected.subnet.prefix}. One shared synthetic profile. Press Ctrl+C to stop.`);
+  console.log(`Interface ${selected.name}, subnet /${selected.subnet.prefix}. Two selectable synthetic profiles; no login protection. Press Ctrl+C to stop.`);
   console.log("Keep router port forwarding, public tunnels and remote-access VPN routes disabled for this service.");
   monitor = setInterval(() => {
     try {
