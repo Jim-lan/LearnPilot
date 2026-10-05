@@ -7,6 +7,7 @@ import { getDb } from "@/server/db";
 import { summarizeLearning } from "@/domain/learning";
 import { loadObservations } from "@/server/learning-store";
 import { selectedLearner } from "@/server/learner";
+import { ensureStarterPacks } from "@/server/content-import";
 
 export async function startSession(form: FormData) {
   const conceptId = String(form.get("conceptId") ?? "");
@@ -16,6 +17,7 @@ export async function startSession(form: FormData) {
   const entry = findLearnerConcept(learner.key, conceptId);
   if (!entry || !["practice", "reassessment"].includes(mode)) throw new Error("Invalid session choice");
   const db = getDb();
+  ensureStarterPacks(db);
   const student = db.prepare("SELECT id FROM students WHERE id = ?").get(learner.id);
   if (!student) redirect("/setup");
   if (mode === "reassessment" && !summarizeLearning(loadObservations(db, learner.id, conceptId)).reviewDue) {

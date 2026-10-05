@@ -1,6 +1,8 @@
 import { createHash } from "node:crypto";
 import type Database from "better-sqlite3";
 import { demoPack, type DemoPack } from "@/domain/demo-content";
+import { familyPack } from "@/domain/family-catalog";
+import { rulePack } from "@/domain/rule-content";
 
 type Pack = DemoPack;
 
@@ -18,7 +20,8 @@ export function validateDemoPack(pack: Pack): void {
   for (const item of pack.items) {
     if (!conceptIds.has(item.conceptId) || (item.answer.kind === "number"
       ? !Number.isFinite(item.answer.value) || item.answer.tolerance < 0 || !item.answer.unit
-      : !item.answer.display || item.answer.accepted.length < 1 || item.answer.accepted.some(value => !value.trim()))) throw new Error(`Broken item: ${item.id}`);
+      : !item.answer.display || item.answer.accepted.length < 1 || item.answer.accepted.some(value => !value.trim())
+        || (item.answer.choices && (item.answer.choices.length < 2 || !item.answer.choices.includes(item.answer.display) || new Set(item.answer.choices).size !== item.answer.choices.length)))) throw new Error(`Broken item: ${item.id}`);
   }
 }
 
@@ -48,4 +51,10 @@ export function importDemoPack(db: Database.Database, pack: Pack = demoPack): "i
     for (const item of pack.items) itemInsert.run(item.id, 1, pack.id, pack.version, item.conceptId, item.prompt, item.answer.kind, JSON.stringify(item.answer), item.rubric, item.mode, "synthetic_automated_checked", item.hint, item.answer.kind === "number" ? "Original item; arithmetic key manually checked against prompt; no educator review" : "Original exact-response example; accepted forms are limited; no educator review");
     return "imported";
   }).immediate();
+}
+
+export function ensureStarterPacks(db: Database.Database): void {
+  importDemoPack(db, demoPack);
+  importDemoPack(db, familyPack);
+  importDemoPack(db, rulePack);
 }

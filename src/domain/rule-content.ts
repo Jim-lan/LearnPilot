@@ -1,0 +1,123 @@
+import type { DemoItem, DemoPack } from "./demo-content";
+
+function question(
+  id: string,
+  conceptId: string,
+  prompt: string,
+  choices: string[],
+  answer: string,
+  explanation: string,
+  hint: string,
+  mode: DemoItem["mode"] = "practice",
+): DemoItem {
+  return {
+    id: `demo:item:rule-${id}`,
+    conceptId: `demo:rule-${conceptId}`,
+    prompt,
+    answer: { kind: "text", accepted: [answer], display: answer, choices, explanation },
+    hint,
+    mode,
+    rubric: "One original choice item. The answer checks this example only; it does not measure general reasoning ability.",
+  };
+}
+
+export const rulePack: DemoPack = {
+  id: "demo:everyday-patterns",
+  version: "1.0.0",
+  title: "Original everyday pattern activities — synthetic Grade 3",
+  jurisdiction: "original_demo",
+  courseCode: "HOME-DEMO",
+  curriculumVersion: "unmapped",
+  sourceUrl: "https://github.com/Jim-lan/LearnPilot",
+  expectations: [],
+  concepts: [
+    {
+      id: "demo:rule-repeating",
+      title: "Find a repeating rule",
+      explanation: "Some everyday patterns repeat a short group. Notice the smallest part that repeats, say it aloud, and predict what comes next.",
+      prerequisites: [],
+    },
+    {
+      id: "demo:rule-growing",
+      title: "Find a growing rule",
+      explanation: "Some amounts grow by the same number each step. Compare each pair, describe the change, and use it to predict the next amount.",
+      prerequisites: [],
+    },
+  ],
+  resources: [
+    {
+      id: "demo:resource:rule-repeating",
+      conceptId: "demo:rule-repeating",
+      provider: "LearnPilot",
+      format: "text",
+      url: null,
+      purpose: "introduction",
+      reviewStatus: "automated_checked",
+      availability: "available",
+      fallback: "Example: spoon, fork, spoon, fork repeats the pair spoon–fork. You can find the repeating part before guessing the next object.",
+    },
+    {
+      id: "demo:resource:rule-growing",
+      conceptId: "demo:rule-growing",
+      provider: "LearnPilot",
+      format: "text",
+      url: null,
+      purpose: "introduction",
+      reviewStatus: "automated_checked",
+      availability: "available",
+      fallback: "Example: a stack of 2, then 4, then 6 blocks grows by 2 blocks each time. Compare neighbouring amounts before making a prediction.",
+    },
+  ],
+  items: [
+    question(
+      "repeat-1", "repeating",
+      "A bracelet goes red bead, blue bead, red bead, blue bead. Which short group repeats?",
+      ["Red–blue", "Red–red", "Blue–blue"],
+      "Red–blue",
+      "The two-bead group red–blue repeats. A new group would start with red.",
+      "Say the smallest repeating group aloud.",
+    ),
+    question(
+      "repeat-2", "repeating",
+      "A dance goes clap, tap, tap, clap, tap, tap. What happens next?",
+      ["Clap", "Tap", "Jump"],
+      "Clap",
+      "The group clap–tap–tap repeats, so a new group begins with clap.",
+      "Can you divide the dance into equal groups?",
+    ),
+    question(
+      "repeat-check", "repeating",
+      "Later check: stickers go star, moon, moon, star, moon, moon. What comes next?",
+      ["Star", "Moon", "Heart"],
+      "Star",
+      "The three-sticker group star–moon–moon repeats.",
+      "Look for a group of three that repeats.",
+      "reassessment",
+    ),
+    question(
+      "grow-1", "growing",
+      "Garden rows have 2 flowers, then 4 flowers, then 6 flowers. Which rule makes the next row?",
+      ["Add 1 flower", "Add 2 flowers", "Add 4 flowers"],
+      "Add 2 flowers",
+      "Each row has 2 more flowers: 2, 4, 6, then 8.",
+      "Compare the change from one row to the next.",
+    ),
+    question(
+      "grow-2", "growing",
+      "Three boxes have 3, 6, and 9 stickers. If the same rule continues, how many stickers are in the next box?",
+      ["10 stickers", "11 stickers", "12 stickers"],
+      "12 stickers",
+      "Each box has 3 more stickers: 3, 6, 9, then 12.",
+      "How many stickers are added each time?",
+    ),
+    question(
+      "grow-check", "growing",
+      "Later check: a block stack has 5 blocks, then 8, then 11. If the same rule continues, how many blocks are next?",
+      ["12 blocks", "14 blocks", "16 blocks"],
+      "14 blocks",
+      "The stack grows by 3 blocks each time: 5, 8, 11, then 14.",
+      "Compare 5 to 8 and 8 to 11.",
+      "reassessment",
+    ),
+  ],
+};

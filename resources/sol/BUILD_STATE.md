@@ -1,19 +1,19 @@
 # LearnPilot build state
 
-Last updated: 2026-10-05 after CCAT book-intake and board-policy research.
+Last updated: 2026-10-05 after U05 everyday-rule scenarios and local verification.
 
 This is the single implementation status record. M0 is implemented; a synthetic M1 learning path is runnable. The app is not ready for real student information.
 
 ## Resume checkpoint
 
 - Current phase: M1 synthetic learning-loop implementation; home-network, reward, and two-profile extension implemented.
-- Current task: U04 CCAT intake is documented and awaiting the administering board/book details. U03 remains verified. B07–B08, B09, and B11–B15 remain incomplete against their full cards; B18 remains partial.
-- New pending request: U04 Grade 3 CCAT preparation. No CCAT practice or book content has been imported. See O07/D18 and [CCAT considerations](../../docs/ccat-considerations.md); the administering board's preparation rule and book metadata must be checked first. TDSB currently prohibits advance CCAT-7 preparation/practice.
+- Current task: U05 original everyday-rule practice is verified for the synthetic Vincent profile. U04 CCAT-specific intake remains waiting on the administering board/book details. B07–B08, B09, and B11–B15 remain incomplete against their full cards; B18 remains partial.
+- Current Grade 3 scope: repeating and growing pattern scenarios sit in Math as ordinary learning practice. They do not use the purchased book, model a CCAT score or claim general reasoning ability. See D19. O07/D18 still gate any test-specific content.
 - Next task: finish B07/B08 resource review and item rubric scope, then B11–B15 acceptance cases before M2 attachment work.
 - Exact next action: inspect the current Git state, then add a controlled resource-review path, explanation-item review behavior, and a later-check browser fixture. Preserve the working synthetic loop, LAN boundary, rewards policy and nine numbered migrations. Review docs/home-network.md before changing deployment.
 - Default authorized-build interpretation: this user request started the app; future continuation should follow the active request scope and the sequence in README.md.
 - Current owner: current build task until handoff.
-- Working implementation: Alex/Vincent profile chooser, subject/topic selector, synthetic Today/practice, topic-wide outside help, French browser speech examples, per-learner Progress, manual evidence correction, LAN sharing and encouragement points. Initial build was published as 3885064; the current extension is recorded in the following Git commit. Inspect `git status` and `git log` before resuming.
+- Working implementation: Alex/Vincent profile chooser, subject/topic selector, synthetic Today/practice, topic-wide outside help, French browser speech examples, original Grade 3 rule scenarios, per-learner Progress, manual evidence correction, LAN sharing and encouragement points. Inspect `git status` and `git log` before resuming.
 - Running process: native LAN launcher on interface en0, port 3000, with backend 127.0.0.1:3100 and synthetic data at `/private/tmp/learnpilot-lan-rewards-oct5`; restarted after U03 and returned health/schema 9. A separate loopback U03 browser preview is running on port 3004 and `/private/tmp/learnpilot-family-smoke-oct5`. Check current address with `npm run lan:info`. Optional container test was stopped gracefully; its synthetic named volume is retained. A previous computer-only server may still own 127.0.0.1:3000; inspect before stopping or replacing any process.
 - Data/migration effects: schema 9 adds a durable outside-help flag to sessions. The original schema-8 reward ledger remains. Alex and Vincent use new durable learner IDs; historical `demo:student:local` records are preserved separately and are not automatically reclassified. Migration/restart/isolation tests pass. Native and Docker storage are separate by default; no records were transferred. No real student data was used by the development tests.
 - Next engineering milestone: finish M1, then M2.
@@ -27,10 +27,10 @@ This is the single implementation status record. M0 is implemented; a synthetic 
 | Development start | `npm run dev` | Command configured; not separately smoke-tested |
 | Production build/start | `npm run build`; `LEARNPILOT_DATA_DIR=/private/tmp/learnpilot-family-smoke-oct5 npm run start -- -p 3004` | Build and U03 loopback browser flow passed 2026-10-05 |
 | Lint/typecheck | `npm run lint`; `npm run typecheck` | Passed 2026-10-05 |
-| Unit/integration tests | `npm test` | 19 tests passed through migration 9 on 2026-10-05, including network policy, rewards and stale forms |
-| Browser tests | Manual in-app browser against `http://127.0.0.1:3004` | Vincent → French → help once → two supported correct answers → Alex with zero points passed 2026-10-05; earlier manual evidence flow passed 2026-10-02 |
+| Unit/integration tests | `npm test` | 20 tests passed through migration 9 on 2026-10-05, including U05 rule feedback, persistence, learner isolation, reward and fresh later-check item |
+| Browser tests | Manual in-app browser against `http://127.0.0.1:3004` | Prior U03 Vincent/French flow passed. For U05, in-app browser rendered setup but its profile form did not navigate during automation; same-origin HTTP profile POST returned 303/set-cookie and GET rendered Vincent's new topic. An interactive U05 click flow remains unverified. |
 | Database migrate | Automatic numbered migrations on first database open | Restart/idempotency/foreign-key/rollback tests passed through schema 9 |
-| Demo seed | Choose Alex or Vincent in `/setup` (calls idempotent pack importers) | Passed in browser; original science and family starter banks loaded |
+| Demo seed | Choose Alex or Vincent in `/setup` (calls idempotent pack importers); existing profiles import on Subjects/Today load | Science, family and original rule packs import idempotently; U05 HTTP render and importer test passed |
 | LAN native | `LEARNPILOT_LAN_INTERFACE=en0 npm run start:lan` | Production build, LAN browser mutations, points and header/peer rejection passed 2026-10-05 |
 | LAN Docker | `LEARNPILOT_LAN_INTERFACE=en0 npm run start:lan:docker` | Built, healthy, non-root, loopback-only publishing, profile persistence after restart/recreation and graceful shutdown passed 2026-10-05 (test ports 3001/3200) |
 | Backup/restore | Not implemented | Not run |
@@ -79,6 +79,7 @@ Statuses and the distinction between engineering completion and pilot readiness 
 | U02 | Requested extension | done | 10-point durable awards, 1.5-second celebration, reduced-motion CSS, totals in Subjects/Session/Progress; duplicates, assistance, wrong answers, migration, restart and stale-form tests pass |
 | U03 | Requested extension | done | Alex/Vincent chooser, grade-specific subjects, separate topic summaries/points, persisted quiz-wide outside help, French word/sentence speech controls and exact-response starter items. 19 tests and loopback browser flow pass; real curriculum mapping, spoken quality and real-data access control remain pending |
 | U04 | Requested design question | waiting_external | Board and book details requested. No CCAT-specific app content until the school board's preparation rule is known; current TDSB guidance forbids advance practice. Conditional plan in docs/ccat-considerations.md |
+| U05 | Requested extension | done | Original versioned repeating/growing rule pack under Vincent's Math; two practice examples and one reserved later-check per topic, one-tap answers, explanation feedback and existing topic/reward persistence. `npm test` 20/20, lint, typecheck and build passed; synthetic integration and same-origin HTTP topic render passed. In-app browser interaction remains unverified for U05. |
 
 ## Gate evidence
 
@@ -132,6 +133,8 @@ For each completed task append a short entry: date, task, changed files, exact c
 2026-10-05 U03: Added a second versioned original synthetic starter pack, Alex/Vincent profile IDs and cookie selection, Grade 3/9 subjects/topics, per-learner page/action scoping, schema-9 quiz-wide outside-help flag, exact-response text scoring, and browser French speech examples. `npm run typecheck`, `npm test` (19/19), and `npm run build` passed; lint initially found two unused-import warnings, which were removed. Loopback browser smoke on port 3004 selected Vincent, opened French, activated outside help once, answered two questions, observed 10 then 20 points and assisted status, switched to Alex, and saw 0 points. Speech controls were clicked without a page error, but audio quality was not measured. The native LAN launcher was restarted with the existing synthetic data root; `curl --fail --silent --show-error http://192.168.2.182:3000/api/health` returned schema 9. No real students, teacher review or official Grade 3/9 mapping was used. The old local demo learner remains preserved separately.
 
 2026-10-05 U04 research/documentation: Checked current official TDSB screening and French-program pages, Nelson's CCAT 7 brochure, and the Canadian Copyright Act. Wrote docs/ccat-considerations.md and O07/D18. No app code, book photos, student data, or CCAT-like items were added; no application tests were needed for documentation-only changes. Await the user's board and book details before a conditional implementation task.
+
+2026-10-05 U05: Added `src/domain/rule-content.ts`, wired it into Vincent's Math catalogue, answer choices and explanatory feedback, and imported it idempotently for existing profiles. An integration test records an incorrect rule choice, a correct fresh example, separate Alex state, one 10-point reward, retained observations after restart and a reserved later-check item. Corrected mixed-evidence wording so it does not assume which result came first. `npm test` passed 20/20; `npm run lint`, `npm run typecheck` and `npm run build` passed. Restarted loopback port 3004 and native LAN port 3000 against their existing synthetic data roots; a same-origin local HTTP POST to `/setup` returned 303 with Vincent cookie, and the rendered Math topic contained the rule title and Start practice. The in-app browser showed the chooser but its automated form submission did not navigate, so full interactive browser U05 validation is still open. No purchased book content, real student data, schema change, provider call, or CCAT-specific item was added.
 
 ## Next-session handoff template
 

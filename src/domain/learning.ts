@@ -32,7 +32,7 @@ export function summarizeLearning(observations: Observation[], now = new Date())
   let explanation: string;
   if (hasCorrect && hasError) {
     observedResult = "mixed";
-    explanation = "The reviewed answers are mixed. An earlier success remains recorded; another check can clarify the current picture.";
+    explanation = "The reviewed answers are mixed. A correct response is recorded alongside an error; another fresh check can clarify the current picture.";
   } else if (latest.result === "incorrect") {
     observedResult = "error_item";
     explanation = "This reviewed answer did not match the item. The reason is not known from this result alone.";

@@ -1,4 +1,5 @@
 import { demoPack, type DemoItem, type DemoPack } from "./demo-content";
+import { rulePack } from "./rule-content";
 
 export type LearnerKey = "alex" | "vincent";
 export type SubjectKey = "science" | "math" | "english" | "french";
@@ -74,11 +75,15 @@ export function subjectsFor(learner: LearnerKey) {
     { subject: "math" as SubjectKey, pack: familyPack, concepts: familyPack.concepts.filter(c => c.id === "demo:g9-linear") },
     { subject: "english" as SubjectKey, pack: familyPack, concepts: familyPack.concepts.filter(c => c.id === "demo:g9-english") },
   ] : [
-    { subject: "math" as SubjectKey, pack: familyPack, concepts: familyPack.concepts.filter(c => c.id.startsWith("demo:g3-") && ["demo:g3-addition", "demo:g3-multiplication"].includes(c.id)) },
+    { subject: "math" as SubjectKey, pack: familyPack, concepts: [...familyPack.concepts.filter(c => ["demo:g3-addition", "demo:g3-multiplication"].includes(c.id)), ...rulePack.concepts] },
     { subject: "english" as SubjectKey, pack: familyPack, concepts: familyPack.concepts.filter(c => c.id === "demo:g3-english") },
     { subject: "french" as SubjectKey, pack: familyPack, concepts: familyPack.concepts.filter(c => c.id.startsWith("demo:g3-french")) },
   ];
   return concepts;
+}
+
+export function packForConcept(conceptId: string): DemoPack | null {
+  return [demoPack, familyPack, rulePack].find(pack => pack.concepts.some(concept => concept.id === conceptId)) ?? null;
 }
 
 export function findLearnerConcept(learner: LearnerKey, conceptId: string) {

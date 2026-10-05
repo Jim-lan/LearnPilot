@@ -1,6 +1,6 @@
 # Grade 3 reasoning-screen considerations: conditional design note
 
-Status: research and design only, 2026-10-05. No CCAT preparation content, book images, or new app route has been imported. The school board and purchased book have not yet been identified.
+Status: CCAT-specific research and design only, 2026-10-05. No CCAT preparation content, book images, or test route has been imported. The school board and purchased book have not yet been identified. The learner clarified that the immediate request is for ordinary rule-finding and learning scenarios. Original repeating and growing pattern activities now live in Vincent's Math area as general practice, with feedback and fresh later-check items. Their answers are item-level observations, not an aptitude score or CCAT prediction.
 
 ## First gate: confirm the administering board's rules
 

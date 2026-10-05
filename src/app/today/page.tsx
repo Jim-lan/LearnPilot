@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { frenchExamples, subjectNames, subjectsFor } from "@/domain/family-catalog";
+import { frenchExamples, packForConcept, subjectNames, subjectsFor } from "@/domain/family-catalog";
 import { summarizeLearning } from "@/domain/learning";
 import { getDb } from "@/server/db";
 import { selectedLearner } from "@/server/learner";
@@ -9,6 +9,7 @@ import { rewardTotals } from "@/server/rewards";
 import { startSession } from "./actions";
 import { RewardSummary } from "../components/reward-summary";
 import { SpeakFrench } from "../components/speak-french";
+import { ensureStarterPacks } from "@/server/content-import";
 
 export const dynamic = "force-dynamic";
 
@@ -19,10 +20,12 @@ export default async function TodayPage({ searchParams }: { searchParams: Promis
   const group = subjectsFor(learner.key).find(g => g.subject === query.subject);
   if (!group) redirect("/subjects");
   const db = getDb();
+  ensureStarterPacks(db);
   const summaries = group.concepts.map(concept => ({ concept, summary: summarizeLearning(loadObservations(db, learner.id, concept.id)) }));
   const selected = summaries.find(entry => entry.concept.id === query.concept) ?? summaries.find(entry => entry.summary.reviewDue) ?? summaries[0];
-  const resource = group.pack.resources.find(r => r.conceptId === selected.concept.id && r.provider === "LearnPilot");
-  const candidate = group.pack.resources.filter(r => r.conceptId === selected.concept.id && r.reviewStatus === "candidate");
+  const pack = packForConcept(selected.concept.id);
+  const resource = pack?.resources.find(r => r.conceptId === selected.concept.id && r.provider === "LearnPilot");
+  const candidate = pack?.resources.filter(r => r.conceptId === selected.concept.id && r.reviewStatus === "candidate") ?? [];
   const resumable = db.prepare(`SELECT s.id FROM sessions s JOIN study_plans p ON p.id = s.plan_id
     WHERE s.student_id = ? AND p.concept_id = ? AND s.ended_at IS NULL AND p.status = 'started'
     ORDER BY s.started_at DESC, s.rowid DESC LIMIT 1`).get(learner.id, selected.concept.id) as { id: string } | undefined;

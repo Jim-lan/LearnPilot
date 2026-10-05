@@ -2,7 +2,7 @@
 
 LearnPilot is a local learning companion with separate synthetic starter profiles for Alex (Grade 9) and Vincent (Grade 3 French immersion). It connects practice to targeted support, encouraging feedback, and later evidence of understanding.
 
-The original design started with one Grade 9 science unit. The current synthetic prototype also has small original Math and English examples for both learners, plus French words and sentences for the Grade 3 profile. Only the Grade 9 science pack has candidate Ontario expectation IDs; the newer subjects are not officially curriculum-mapped. The app is not ready for real student data.
+The original design started with one Grade 9 science unit. The current synthetic prototype also has small original Math and English examples for both learners, French words and sentences for the Grade 3 profile, and everyday repeating/growing rule activities in Vincent's Math area. Each rule topic asks for the rule, gives feedback, then offers a new example and a separate later check. Only the Grade 9 science pack has candidate Ontario expectation IDs; the newer subjects are not officially curriculum-mapped. The app is not ready for real student data.
 
 ## Design documents
 

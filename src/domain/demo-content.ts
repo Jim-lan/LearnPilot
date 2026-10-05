@@ -1,5 +1,5 @@
 export type AnswerKey = { kind: "number"; value: number; unit: string; tolerance: number }
-  | { kind: "text"; accepted: string[]; display: string; caseSensitive?: boolean };
+  | { kind: "text"; accepted: string[]; display: string; caseSensitive?: boolean; choices?: string[]; explanation?: string };
 export type DemoItem = {
   id: string;
   conceptId: string;
