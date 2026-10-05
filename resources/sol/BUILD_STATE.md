@@ -1,20 +1,20 @@
 # LearnPilot build state
 
-Last updated: 2026-10-02 by the first application build task.
+Last updated: 2026-10-05 after the home-network and encouragement feature request.
 
 This is the single implementation status record. M0 is implemented; a synthetic M1 learning path is runnable. The app is not ready for real student information.
 
 ## Resume checkpoint
 
-- Current phase: M1 synthetic learning-loop implementation.
-- Current task: M1 vertical slice verified; B07–B08 and B11–B15 remain incomplete against their full cards. A partial B18 correction path is also implemented.
+- Current phase: M1 synthetic learning-loop implementation; requested home-network and reward extension implemented.
+- Current task: U01 home-network access and U02 encouragement points verified in synthetic engineering checks. B07–B08 and B11–B15 remain incomplete against their full cards; B18 remains partial.
 - Next task: finish B07/B08 resource review and item rubric scope, then B11–B15 acceptance cases before M2 attachment work.
-- Exact next action: inspect the current Git state, then add a controlled resource-review path, explanation-item review behavior, and a later-check browser fixture. Preserve the working synthetic loop and the seven numbered migrations.
+- Exact next action: inspect the current Git state, then add a controlled resource-review path, explanation-item review behavior, and a later-check browser fixture. Preserve the working synthetic loop, LAN boundary, rewards policy and eight numbered migrations. Review docs/home-network.md before changing deployment.
 - Default authorized-build interpretation: this user request started the app; future continuation should follow the active request scope and the sequence in README.md.
 - Current owner: current build task until handoff.
-- Working implementation: synthetic setup, Today, practice with assistance provenance, Progress, and manual evidence revision/correction work through a production browser run. Inspect `git status` before changing files; the first application build is being committed and published at this checkpoint.
-- Running process: a local production smoke server may still be serving `127.0.0.1:3000` with private synthetic data under `/private/tmp/learnpilot-ui-smoke-codex`; check whether it is running before reusing that port. No real student data was used.
-- Data/migration effects: schema 7 is current and upgraded the existing synthetic smoke database on restart; migration tests passed. New runs create a private SQLite database outside source.
+- Working implementation: synthetic setup, Today, practice with assistance provenance, Progress, manual evidence correction, LAN sharing and encouragement points. Initial build was published as 3885064; the current extension is recorded in the following Git commit. Inspect `git status` and `git log` before resuming.
+- Running process: native LAN launcher left on interface en0, port 3000, with backend 127.0.0.1:3100 and synthetic data at `/private/tmp/learnpilot-lan-rewards-oct5`. Check current address with `npm run lan:info`. Optional container test was stopped gracefully; its synthetic named volume is retained. A previous computer-only server may still own 127.0.0.1:3000; inspect before stopping or replacing any process.
+- Data/migration effects: schema 8 adds a reward ledger and backfills existing deterministic correct answers once per learner/item version. Migration/restart/deduplication tests pass. Native and Docker storage are separate by default; no records were transferred. No real student data was used by the development tests.
 - Next engineering milestone: finish M1, then M2.
 - Real-data pilot: not ready; O01–O06 remain unresolved as applicable.
 
@@ -25,11 +25,13 @@ This is the single implementation status record. M0 is implemented; a synthetic 
 | Install | `npm ci` | Passed in workspace and a separate temporary clean copy on 2026-10-02 |
 | Development start | `npm run dev` | Command configured; not separately smoke-tested |
 | Production build/start | `npm run build`; `LEARNPILOT_DATA_DIR=/private/tmp/learnpilot-ui-smoke-codex npm run start` | Build passed; loopback server and browser flow passed 2026-10-02 |
-| Lint/typecheck | `npm run lint`; `npm run typecheck` | Passed 2026-10-02 |
-| Unit/integration tests | `npm test` | 12 tests passed through migration 7 on 2026-10-02 |
+| Lint/typecheck | `npm run lint`; `npm run typecheck` | Passed 2026-10-05 |
+| Unit/integration tests | `npm test` | 18 tests passed through migration 8 on 2026-10-05, including network policy, rewards and stale forms |
 | Browser tests | Manual in-app browser against `http://127.0.0.1:3000` | Setup → Today → hinted practice → fresh answer → Progress → manual evidence review → correction/history passed 2026-10-02 |
-| Database migrate | Automatic numbered migrations on first database open | Restart/idempotency/foreign-key/rollback tests passed through schema 7 |
+| Database migrate | Automatic numbered migrations on first database open | Restart/idempotency/foreign-key/rollback tests passed through schema 8 |
 | Demo seed | Save synthetic setup in `/setup` (calls idempotent pack importer) | Passed in browser; 24 item bank loaded |
+| LAN native | `LEARNPILOT_LAN_INTERFACE=en0 npm run start:lan` | Production build, LAN browser mutations, points and header/peer rejection passed 2026-10-05 |
+| LAN Docker | `LEARNPILOT_LAN_INTERFACE=en0 npm run start:lan:docker` | Built, healthy, non-root, loopback-only publishing, profile persistence after restart/recreation and graceful shutdown passed 2026-10-05 (test ports 3001/3200) |
 | Backup/restore | Not implemented | Not run |
 
 Replace placeholders with actual commands and dates. Keep command results factual. Never put a provider key or private student content in this file.
@@ -42,8 +44,8 @@ Statuses and the distinction between engineering completion and pilot readiness 
 | --- | --- | --- | --- |
 | B01 | M0 | done | Pinned Next.js 16.3.8/React 19.3.0; full clean `npm ci`, tests, lint, typecheck, build pass; production loopback HTTP 200 |
 | B02 | M0 | done | Private configured root outside source, subdirectories and rejection tests; .env.example and ignore rules |
-| B03 | M0 | done | Numbered SQLite migrations 1–7; restart/foreign-key/rollback tests; health endpoint reports schema version |
-| B04 | M0 | done | Six-section shell, error/loading states, loopback bind, Host/Origin guard and no-store headers tested by curl |
+| B03 | M0 | done | Numbered SQLite migrations 1–8; restart/foreign-key/rollback tests; health endpoint reports schema version |
+| B04 | M0 | done | Six-section shell and default loopback mode; authorized U01 LAN gateway/peer restriction, Host/Origin guard and no-store headers verified |
 | B05 | M0 | done | Fake/disabled adapter, bounded draft validation and failure-state tests; no provider credentials needed |
 | B06 | M1 | done | Synthetic 0.1.0 pack, four concepts and candidate Ontario IDs; idempotent/version-conflict tests. Actual alignment review pending |
 | B07 | M1 | in_progress | Original text works and candidate Khan/PhET links stay in reviewer preview; item-level external review/availability workflow remains |
@@ -66,12 +68,14 @@ Statuses and the distinction between engineering completion and pilot readiness 
 | B24 | M4 | pending | Export/backup not implemented |
 | B25 | M4 | pending | Restore not implemented/tested |
 | B26 | M4 | pending | Deletion/cleanup not implemented |
-| B27 | M4 | pending | Local technical controls unverified; real-data policy pending |
+| B27 | M4 | in_progress | U01 network engineering checks passed; attachment controls, complete privacy checks and real-data policy remain open |
 | B28 | M4 | pending | Diagnostics/recovery not implemented |
 | B29 | M5 | pending | Reference suite and extension demonstration not run |
 | B30 | M5 | pending | Browser/accessibility validation not run |
 | B31 | M5 | waiting_external | Real student/reviewer/policy/elapsed-time evidence unavailable; does not block synthetic B32 |
 | B32 | M5 | pending | Synthetic release notes can follow B29/B30; real-pilot findings remain pending |
+| U01 | Requested extension | done | Host LAN gateway, native/Docker launch and shutdown, exact Host/Origin and peer tests pass; second physical device, router configuration and WAN checks not independently verified |
+| U02 | Requested extension | done | 10-point durable awards, 1.5-second celebration, reduced-motion CSS, totals in Today/Session/Progress; duplicates, assistance, wrong answers, migration, restart and stale-form tests pass |
 
 ## Gate evidence
 
@@ -94,6 +98,9 @@ Use `passed`, `failed`, `not_run` or `not_applicable` for actual engineering che
 
 ## Blockers and external inputs
 
+- LAN acceptance: user was asked to test another physical device. No reply is recorded yet. Router forwarding/VPN routes and outside-Wi-Fi reachability are not independently verified. This is a trusted home-subnet synthetic deployment, not authenticated or encrypted multi-user hosting.
+- Dependency audit on 2026-10-05: runtime container prune/audit reported zero production advisories. Full `npm audit` reported five high entries in the dev-only Next ESLint → fast-glob → micromatch → braces chain (GHSA-vfj7-8cjw-p6xm). No blind major downgrade was applied; resolve upstream compatibility during dependency maintenance. This is not a completed B27 security assessment.
+
 - No known blocker to continuing synthetic M1. M2 attachments and M4 backup/restore remain unimplemented, so real data is prohibited.
 - Real deployment/data decisions: [O01–O06](decisions.md).
 - Live model verification: no provider choice, credentials or spend authorization recorded for the application; implement mock-tested code without live calls.
@@ -111,6 +118,10 @@ Use `passed`, `failed`, `not_run` or `not_applicable` for actual engineering che
 2026-10-02 browser integration: In an isolated synthetic data root, saved setup, started practice, used a hint, submitted a supported correct answer, advanced to a fresh item, submitted an independent correct answer, and inspected item-scoped Progress. Entered a fictional manual draft, published an incorrect local review, and saw Progress change to mixed evidence. `tests/flow.test.ts` additionally covers duplicate submission, restart persistence, correction from incorrect to correct, retained old revision, stale-tab rejection, and stale-plan submission refusal. No actual learner, teacher, or pilot outcome was observed.
 
 2026-10-02 correction/browser and final checks: Restarted the production server on the existing synthetic smoke database after migration 7; health reported schema 7, and Progress and Evidence returned 200. Corrected the fictional reviewed evidence through the browser, observed revision 2 and retained history. `npm test` passed 12/12, and `npm run lint`, `npm run typecheck`, and `npm run build` all passed after these changes. Backup, restore, deletion, uploads and real-data controls remain incomplete.
+
+2026-10-05 U01/U02: Added scripts/lan-policy.mjs, lan-gateway.mjs and start-lan.mjs, a pinned Node 22 Dockerfile/Compose setup, exact configured LAN Host allowance, migration 8 reward ledger, reward UI and stale-question form guards. `npm test` passed 18/18; lint, typecheck and production build passed. Native LAN health returned 200/schema 8. Spoofed Host, cross-site POST and a loopback/out-of-subnet peer claiming an allowed forwarded IP returned 403. Browser setup and two correct answers (one hinted) produced 10 then 20 points; the active animation reported 1.5s and became inactive, and refresh/restart preserved totals without replay. A 390px viewport had no document overflow. Unit tests also cover wrong-answer exclusion, duplicate awards, old-schema backfill and deleted/withdrawn attempts. Reduced-motion CSS is implemented; OS reduced-motion emulation was not exercised.
+
+2026-10-05 Docker verification: `docker compose build` passed using the pinned official Node image; `start:lan:docker` on test ports 3001/3200 became healthy. Docker inspect confirmed user `node` and only `127.0.0.1:3200` publishing. A fictional profile saved through the LAN browser persisted after container restart and final-image recreation. A bounded launcher smoke sent SIGTERM; exit 0 confirmed graceful gateway/container shutdown. The named test volume remains. No external/cloud deployment, router changes, student data or live AI calls were performed. Both screenshot/browser checks and network tests were run from this laptop; do not report physical phone/WAN validation without the user's evidence.
 
 For each completed task append a short entry: date, task, changed files, exact commands and exit/result, manual observations, unresolved limits. Link longer reports only when needed; keep the current checkpoint brief enough to read at every session start.
 

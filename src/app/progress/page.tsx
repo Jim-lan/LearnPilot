@@ -4,6 +4,8 @@ import { summarizeLearning } from "@/domain/learning";
 import { getDb } from "@/server/db";
 import { loadObservations } from "@/server/learning-store";
 import { DEMO_STUDENT_ID } from "@/server/session-store";
+import { rewardTotals } from "@/server/rewards";
+import { RewardSummary } from "../components/reward-summary";
 
 export const dynamic = "force-dynamic";
 
@@ -18,6 +20,7 @@ export default async function ProgressPage({ searchParams }: { searchParams: Pro
     return { concept, observations, summary, coverage: coverage?.state ?? "unknown" };
   });
   return <div className="page"><p className="eyebrow">Progress · Evidence, not percentages</p><h1>What the work shows so far.</h1><p className="lead">Each note is limited to the recorded items. Classroom coverage, assistance, and later review remain separate.</p>
+    <RewardSummary {...rewardTotals(db, DEMO_STUDENT_ID)} />
     {notice === "bank-exhausted" && <div className="notice">No fresh checked question remains in that session. The existing answers stay saved; choose another topic or wait for new reviewed items.</div>}
     <div className="evidence-list">{cards.map(({ concept, observations, summary, coverage }) => <article className="feature-card" key={concept.id}><span className="tag">Classroom coverage: {coverage.replaceAll("_", " ")}</span><h2>{concept.title}</h2><p>{summary.explanation}</p><p className="muted">{observations.length} recorded observation{observations.length === 1 ? "" : "s"} · assistance: {summary.assistance.replaceAll("_", " ")} · evidence: {summary.sufficiency.replaceAll("_", " ")}</p>{summary.reviewDue && <p><strong>A later check is due.</strong> Time alone has not changed the observed result.</p>}
       {summary.evidenceRefs.length > 0 && <details><summary>Evidence references</summary><ul>{summary.evidenceRefs.map(id => <li key={id}><code>{id}</code></li>)}</ul></details>}

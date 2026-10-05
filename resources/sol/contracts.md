@@ -10,7 +10,7 @@ Suggested code locations are `src/app/` for UI/routes, `src/domain/` for learnin
 
 Keep runtime files under a configured private data directory: database, attachments, staging, app-managed backups and temporary output. It must be outside static asset directories and ignored by Git. Browser responses never contain local filesystem paths or API keys. Browser storage can hold ephemeral UI preferences, not the sole copy of evidence. Do not put a live SQLite file in a cloud-sync or network-shared folder.
 
-The first server listens on loopback; reject unexpected Host/Origin and protect mutation requests, including uploads. Use framework-supported protections and explicit local routes, not an exposed filesystem browser. Private pages/API responses must not be shared-cacheable. Local OS access is the trust boundary, not a parent/student role selector.
+Default startup listens on loopback. The user's 2026-10-05 request additionally authorizes home-network sharing through the host LAN gateway, bound to one selected private IPv4 interface and checking the real socket peer's subnet. The Next backend stays loopback-only on the host (also for Docker publishing). Reject unexpected Host/Origin and protect mutation requests, including uploads. Use framework-supported protections and explicit local routes, not an exposed filesystem browser. Private pages/API responses must not be shared-cacheable. LAN mode trusts devices on the selected home subnet with one shared profile; it provides no parent/student role separation. Router forwarding, VPN routing and public tunnels must not extend that boundary; see docs/home-network.md and D15.
 
 ## C02 Identity and versions
 
@@ -97,6 +97,8 @@ Each resource recommendation contains the exact catalogue version, a reason, an 
 Items define answer type, accepted units/equivalent forms, numerical tolerance where needed, rubric and intended concept. Do not use eval or execute user-entered expressions. Short explanations/diagrams need rubric review; a model assessment stays tentative. Keep reassessment items withheld from practice and record exposure when displayed. If no unseen items remain, disclose that limitation and avoid an independent-reassessment claim.
 
 Feedback describes an actual observed success or strategy, addresses an error kindly, and gives one attainable next step. Do not infer effort from time, praise wrong answers as correct, invent improvement, label permanent ability, or penalize breaks. Refer to [feedback examples](../../docs/personalized-learning.md).
+
+The user requested points and brief correct-answer celebrations on 2026-10-05. Reward policy `correct-answer-v1` grants 10 points once per learner/item version after a deterministic correct score commits, regardless of recorded help. Keep awards durable, idempotent and separate from understanding. Incorrect/pending answers and manual teacher-mark entries do not award points. Schema 8 backfills existing checked correct attempts once. An ineligible/withdrawn score cannot contribute to the current total, and deleting an attempt cascades its award. The 1.5-second visual respects reduced motion; static feedback remains. Old device forms must not submit or expose hints for a different current item. No leaderboards, streak loss, or penalties for breaks are introduced.
 
 ## C09 Model operations
 

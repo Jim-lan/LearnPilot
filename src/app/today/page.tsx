@@ -5,6 +5,8 @@ import { getDb } from "@/server/db";
 import { loadObservations } from "@/server/learning-store";
 import { DEMO_STUDENT_ID } from "@/server/session-store";
 import { startSession } from "./actions";
+import { rewardTotals } from "@/server/rewards";
+import { RewardSummary } from "../components/reward-summary";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +25,7 @@ export default async function TodayPage({ searchParams }: { searchParams: Promis
   const resource = demoPack.resources.find(r => r.conceptId === selected.concept.id && r.provider === "LearnPilot")!;
   const candidate = demoPack.resources.filter(r => r.conceptId === selected.concept.id && r.reviewStatus === "candidate");
   return <div className="page"><p className="eyebrow">Today · Synthetic practice</p><h1>One useful step, {student.name}.</h1><p className="lead">{selected.summary.explanation}</p>
+    <RewardSummary {...rewardTotals(db, DEMO_STUDENT_ID)} />
     {resumable && <div className="notice">A saved session is ready. <Link className="text-link" href={`/session?id=${encodeURIComponent(resumable.id)}`}>Resume it →</Link></div>}
     {query.notice === "no-fresh-item" && <div className="notice">No fresh checked item remains in this topic and mode. Choose another topic or return to ordinary practice; repeated questions will not be called independent reassessment.</div>}
     {query.notice === "not-due" && <div className="notice">A later check is not due yet. Practice is available now; time alone will not change the observed result.</div>}

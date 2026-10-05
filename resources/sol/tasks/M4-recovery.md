@@ -60,7 +60,7 @@ Build these tasks against synthetic data on one trusted local computer. Read [co
 **Dependencies:** B04, B16; B23 if AI is enabled; the provisional local A18 contract.
 
 **Bounded steps**
-1. Verify loopback-only startup and host/origin/mutation protection. Do not expose the server on a home network or public host to simplify a test.
+1. Verify loopback startup and host/origin/mutation protection. For the home-network mode explicitly authorized on 2026-10-05, additionally verify D15's bound interface, direct peer subnet check, header stripping and loopback-only backend publishing. LAN tests use synthetic data; public hosting remains outside scope. See docs/home-network.md.
 2. Check attachment access, path handling, private/no-store responses, browser/shared caches, ignored runtime paths, and server-side secret loading. Use synthetic canary values to inspect logs and exported bundles.
 3. Inspect installed dependencies and the selected upload parser for relevant findings; fix or record concrete unresolved risks. Do not add an enterprise security platform.
 4. With a fake provider, inspect exactly which fields each enabled operation sends. Confirm disabled mode makes no provider request and that transmission notices match behavior.

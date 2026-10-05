@@ -1,0 +1,22 @@
+services:
+  learnpilot:
+    build: .
+    init: true
+    ports:
+      - "127.0.0.1:${LEARNPILOT_BACKEND_PORT:-3100}:3100"
+    environment:
+      LEARNPILOT_LAN_AUTHORITY: ${LEARNPILOT_LAN_AUTHORITY:-}
+      LEARNPILOT_DATA_DIR: /var/lib/learnpilot
+    volumes:
+      - learnpilot-data:/var/lib/learnpilot
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3100/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+volumes:
+  learnpilot-data:

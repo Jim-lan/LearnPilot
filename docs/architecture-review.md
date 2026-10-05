@@ -1,5 +1,7 @@
 # Initial architecture review
 
+Update 2026-10-05: the user has authorized a home-network mode and quiz encouragement points. See [D15/D16](../resources/sol/decisions.md), [home-network setup](home-network.md), and the canonical [build state](../resources/sol/BUILD_STATE.md). These changes supersede the original loopback-only boundary for that explicit mode; real-data gates remain open.
+
 Reviewed 2026-10-02 against the original LearnPilot brief version 0.1 and the three design documents dated 2026-10-01. This is a proposed architecture and build boundary, not an implementation or a claim that all decisions are approved.
 
 ## Recommendation

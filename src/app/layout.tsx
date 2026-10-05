@@ -27,7 +27,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <nav aria-label="Primary navigation">
               {sections.map(([href, label]) => <Link key={href} href={href}>{label}</Link>)}
             </nav>
-            <div className="sidebar-foot"><strong>Synthetic prototype</strong><p>Local only · AI off</p></div>
+            <div className="sidebar-foot"><strong>Synthetic prototype</strong><p>Hosted on your laptop · AI off</p></div>
           </aside>
           <main id="main-content">{children}</main>
         </div>

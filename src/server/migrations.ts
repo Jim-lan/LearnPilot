@@ -263,4 +263,26 @@ export const migrations: Migration[] = [
       ALTER TABLE study_plans ADD COLUMN resource_id TEXT REFERENCES resources(id);
     `,
   },
+  {
+    version: 8,
+    name: "encouragement_points",
+    sql: `
+      CREATE TABLE reward_awards (
+        attempt_id TEXT PRIMARY KEY REFERENCES attempts(id) ON DELETE CASCADE,
+        student_id TEXT NOT NULL REFERENCES students(id) ON DELETE CASCADE,
+        item_id TEXT NOT NULL,
+        item_version INTEGER NOT NULL,
+        points INTEGER NOT NULL CHECK (points = 10),
+        policy_version TEXT NOT NULL,
+        awarded_at TEXT NOT NULL,
+        FOREIGN KEY (item_id, item_version) REFERENCES items(id, version),
+        UNIQUE (student_id, item_id, item_version)
+      ) STRICT;
+      INSERT INTO reward_awards (attempt_id, student_id, item_id, item_version, points, policy_version, awarded_at)
+      SELECT id, student_id, item_id, item_version, 10, 'correct-answer-v1', submitted_at FROM (
+        SELECT *, ROW_NUMBER() OVER (PARTITION BY student_id, item_id, item_version ORDER BY submitted_at, rowid) AS position
+        FROM attempts WHERE score_status = 'correct' AND score_source = 'deterministic-v0.1'
+      ) WHERE position = 1;
+    `,
+  },
 ];
