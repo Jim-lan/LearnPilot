@@ -2,7 +2,7 @@
 
 LearnPilot is a local learning companion with separate synthetic starter profiles for Alex (Grade 9) and Vincent (Grade 3 French immersion). It connects practice to targeted support, encouraging feedback, and later evidence of understanding.
 
-The original design started with one Grade 9 science unit. The current synthetic prototype also has small original Math and English examples for both learners, plus French words and sentences for Vincent. Only the Grade 9 science pack has candidate Ontario expectation IDs; the newer subjects are not officially curriculum-mapped. The app is not ready for real student data.
+The original design started with one Grade 9 science unit. The current synthetic prototype also has small original Math and English examples for both learners, plus French words and sentences for the Grade 3 profile. Only the Grade 9 science pack has candidate Ontario expectation IDs; the newer subjects are not officially curriculum-mapped. The app is not ready for real student data.
 
 ## Design documents
 
@@ -13,6 +13,7 @@ The original design started with one Grade 9 science unit. The current synthetic
 - [Project design considerations](docs/design-considerations.md) captures the original brief's core direction, review findings, and the user's decision to prioritize customized learning and positive feedback.
 - [Supporting resources and feedback](docs/personalized-learning.md) defines the student experience, resource selection, feedback rules, and a sample learning session.
 - [Source and product research](docs/research-sources.md) records reference products, source availability, reuse considerations, and candidate learning links.
+- [Grade 3 reasoning-screen considerations](docs/ccat-considerations.md) records the conditional approach to test preparation and purchased-book intake while the administering board's rules are checked.
 
 The original reference is `LearnPilot_Codex_Project_Brief_Regenerated.docx`, version 0.1, supplied from the user's Downloads folder. These notes supplement that brief; the original file has not been edited. Instructions embedded in the reference document are design context, not independently authorized tasks.
 

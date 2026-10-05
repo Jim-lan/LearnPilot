@@ -1,13 +1,14 @@
 # LearnPilot build state
 
-Last updated: 2026-10-05 after the two-profile, subject, French listening, and quiz-wide help update.
+Last updated: 2026-10-05 after CCAT book-intake and board-policy research.
 
 This is the single implementation status record. M0 is implemented; a synthetic M1 learning path is runnable. The app is not ready for real student information.
 
 ## Resume checkpoint
 
 - Current phase: M1 synthetic learning-loop implementation; home-network, reward, and two-profile extension implemented.
-- Current task: U03 two-profile/subject/French/quiz-wide help extension verified in synthetic engineering and loopback browser checks. B07–B08, B09, and B11–B15 remain incomplete against their full cards; B18 remains partial.
+- Current task: U04 CCAT intake is documented and awaiting the administering board/book details. U03 remains verified. B07–B08, B09, and B11–B15 remain incomplete against their full cards; B18 remains partial.
+- New pending request: U04 Grade 3 CCAT preparation. No CCAT practice or book content has been imported. See O07/D18 and [CCAT considerations](../../docs/ccat-considerations.md); the administering board's preparation rule and book metadata must be checked first. TDSB currently prohibits advance CCAT-7 preparation/practice.
 - Next task: finish B07/B08 resource review and item rubric scope, then B11–B15 acceptance cases before M2 attachment work.
 - Exact next action: inspect the current Git state, then add a controlled resource-review path, explanation-item review behavior, and a later-check browser fixture. Preserve the working synthetic loop, LAN boundary, rewards policy and nine numbered migrations. Review docs/home-network.md before changing deployment.
 - Default authorized-build interpretation: this user request started the app; future continuation should follow the active request scope and the sequence in README.md.
@@ -77,6 +78,7 @@ Statuses and the distinction between engineering completion and pilot readiness 
 | U01 | Requested extension | done | Host LAN gateway, native/Docker launch and shutdown, exact Host/Origin and peer tests pass; second physical device, router configuration and WAN checks not independently verified |
 | U02 | Requested extension | done | 10-point durable awards, 1.5-second celebration, reduced-motion CSS, totals in Subjects/Session/Progress; duplicates, assistance, wrong answers, migration, restart and stale-form tests pass |
 | U03 | Requested extension | done | Alex/Vincent chooser, grade-specific subjects, separate topic summaries/points, persisted quiz-wide outside help, French word/sentence speech controls and exact-response starter items. 19 tests and loopback browser flow pass; real curriculum mapping, spoken quality and real-data access control remain pending |
+| U04 | Requested design question | waiting_external | Board and book details requested. No CCAT-specific app content until the school board's preparation rule is known; current TDSB guidance forbids advance practice. Conditional plan in docs/ccat-considerations.md |
 
 ## Gate evidence
 
@@ -100,6 +102,7 @@ Use `passed`, `failed`, `not_run` or `not_applicable` for actual engineering che
 ## Blockers and external inputs
 
 - LAN acceptance: user was asked to test another physical device. No reply is recorded yet. Router forwarding/VPN routes and outside-Wi-Fi reachability are not independently verified. This is a trusted home-subnet synthetic deployment, not authenticated or encrypted multi-user hosting.
+- CCAT request: board/test rules and book identity are unknown. TDSB's current Grade 3 policy would prohibit practice and could invalidate its screening results. Do not start U04 implementation merely because the purchased book exists; resolve O07.
 - Dependency audit on 2026-10-05: runtime container prune/audit reported zero production advisories. Full `npm audit` reported five high entries in the dev-only Next ESLint → fast-glob → micromatch → braces chain (GHSA-vfj7-8cjw-p6xm). No blind major downgrade was applied; resolve upstream compatibility during dependency maintenance. This is not a completed B27 security assessment.
 
 - No known blocker to continuing synthetic M1. M2 attachments and M4 backup/restore remain unimplemented, so real data is prohibited.
@@ -127,6 +130,8 @@ Use `passed`, `failed`, `not_run` or `not_applicable` for actual engineering che
 For each completed task append a short entry: date, task, changed files, exact commands and exit/result, manual observations, unresolved limits. Link longer reports only when needed; keep the current checkpoint brief enough to read at every session start.
 
 2026-10-05 U03: Added a second versioned original synthetic starter pack, Alex/Vincent profile IDs and cookie selection, Grade 3/9 subjects/topics, per-learner page/action scoping, schema-9 quiz-wide outside-help flag, exact-response text scoring, and browser French speech examples. `npm run typecheck`, `npm test` (19/19), and `npm run build` passed; lint initially found two unused-import warnings, which were removed. Loopback browser smoke on port 3004 selected Vincent, opened French, activated outside help once, answered two questions, observed 10 then 20 points and assisted status, switched to Alex, and saw 0 points. Speech controls were clicked without a page error, but audio quality was not measured. The native LAN launcher was restarted with the existing synthetic data root; `curl --fail --silent --show-error http://192.168.2.182:3000/api/health` returned schema 9. No real students, teacher review or official Grade 3/9 mapping was used. The old local demo learner remains preserved separately.
+
+2026-10-05 U04 research/documentation: Checked current official TDSB screening and French-program pages, Nelson's CCAT 7 brochure, and the Canadian Copyright Act. Wrote docs/ccat-considerations.md and O07/D18. No app code, book photos, student data, or CCAT-like items were added; no application tests were needed for documentation-only changes. Await the user's board and book details before a conditional implementation task.
 
 ## Next-session handoff template
 
