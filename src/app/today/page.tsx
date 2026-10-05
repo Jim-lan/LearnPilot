@@ -9,6 +9,7 @@ import { rewardTotals } from "@/server/rewards";
 import { startSession } from "./actions";
 import { RewardSummary } from "../components/reward-summary";
 import { SpeakFrench } from "../components/speak-french";
+import { SpeakButton } from "../components/speak-button";
 import { ensureStarterPacks } from "@/server/content-import";
 
 export const dynamic = "force-dynamic";
@@ -37,7 +38,7 @@ export default async function TodayPage({ searchParams }: { searchParams: Promis
     {query.notice === "no-fresh-item" && <div className="notice">No fresh checked item remains in this topic and mode. Choose another topic; repeated questions will not be called independent reassessment.</div>}
     {query.notice === "not-due" && <div className="notice">A later check is not due yet. Practice is available now.</div>}
     <div className="topic-tabs" aria-label="Choose a topic">{group.concepts.map(concept => <Link key={concept.id} aria-current={concept.id === selected.concept.id ? "page" : undefined} href={`/today?subject=${group.subject}&concept=${encodeURIComponent(concept.id)}`}>{concept.title}</Link>)}</div>
-    <article className="feature-card"><span className="tag">Original starter practice · synthetic</span><h2>{selected.concept.title}</h2><p>{selected.concept.explanation}</p><p>{resource?.fallback}</p>
+    <article className="feature-card"><span className="tag">Original starter practice · synthetic</span><h2>{selected.concept.title}</h2><p>{selected.concept.explanation}</p><p>{resource?.fallback}</p><SpeakButton text={[selected.concept.title, selected.concept.explanation, resource?.fallback].filter(Boolean).join(". ")} label="Read concept aloud" />
       {french && <div className="audio-card"><h3>Listen and say it</h3><SpeakFrench label="Hear a word" value={french.word} /><SpeakFrench label="Hear a sentence" value={french.sentence} /><p className="muted">You can repeat aloud. We do not record or grade pronunciation.</p></div>}
       <form action={startSession}><input type="hidden" name="conceptId" value={selected.concept.id} /><input type="hidden" name="mode" value="practice" /><button className="button" type="submit">Start practice</button></form>
       {selected.summary.reviewDue && <form action={startSession}><input type="hidden" name="conceptId" value={selected.concept.id} /><input type="hidden" name="mode" value="reassessment" /><button className="secondary-button" type="submit">Try a fresh later check</button></form>}
